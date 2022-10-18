@@ -1,12 +1,25 @@
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
 class User {
-  final String? name;
-  final String email;
-  final String password;
-  List<String> postHistory = [];
+  String? _name;
+  String? get name {
+    return _name;
+  }
+  String _email;
+  String? get email {
+    return _email;
+  }
+  String _password;
+  List<String> _postHistory = [];
+  List<String> get postHistory {
+    return _postHistory;
+  }
 
-  User(this.name, this.email, this.password);
+  User(this._name, this._email, this._password);
+
+  factory User.from(Map<String, dynamic> source) {
+    return User(source['name'], source['email'], source['password']);
+  }
 
   HTTP http = HTTP();
   final String baseUrl = '/users';
@@ -14,22 +27,22 @@ class User {
   signUp() async {
     return await http.post(
       Uri.parse('$baseUrl/register'),
-      {'name': name, 'email': email, 'password': password},
+      {'name': _name, 'email': _email, 'password': _password},
     );
   }
 
   signIn() async {
     Map<String, dynamic> user = await http.post(
       Uri.parse(baseUrl),
-      {'email': email, 'password': password},
+      {'email': _email, 'password': _password},
     );
-    postHistory = user['postHistory'];
+    _postHistory = user['postHistory'];
     return user;
   }
 
   session() async {
     Map<String, dynamic> user = await http.get(Uri.parse(baseUrl));
-    postHistory = user['postHistory'];
+    _postHistory = user['postHistory'];
     return user;
   }
 
@@ -43,5 +56,12 @@ class User {
 
   update() async {
     // TODO
+  }
+
+  _from(Map<String, dynamic> source) {
+    _postHistory = source['postHistory'];
+    _name = source['name'];
+    _email = source['email'];
+    _password = source['password'];
   }
 }
