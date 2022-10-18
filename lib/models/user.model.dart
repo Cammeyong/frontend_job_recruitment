@@ -55,7 +55,12 @@ class User {
   }
 
   update() async {
-    // TODO
+    Map<String, dynamic> user = await http.post(
+      Uri.parse('$baseUrl/register'),
+      {'name': _name, 'email': _email, 'password': _password},
+    );
+    _from(user);
+    return user;
   }
 
   _from(Map<String, dynamic> source) {
