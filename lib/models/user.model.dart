@@ -1,24 +1,31 @@
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
 class User {
+  String? _id;
   String? _name;
+
   String? get name {
     return _name;
   }
+
   String _email;
+
   String? get email {
     return _email;
   }
+
   String _password;
   List<String> _postHistory = [];
+
   List<String> get postHistory {
     return _postHistory;
   }
 
-  User(this._name, this._email, this._password);
+  User(this._id, this._name, this._email, this._password);
 
   factory User.from(Map<String, dynamic> source) {
-    return User(source['name'], source['email'], source['password']);
+    return User(
+        source['_id'], source['name'], source['email'], source['password']);
   }
 
   HTTP http = HTTP();
