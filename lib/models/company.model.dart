@@ -31,7 +31,21 @@ class Company {
         source['logo'],
       );
 
-  // TODO model methods
+  static get(String id) async {}
+
+  static getAll() {}
+
+  signUp() async {}
+
+  signIn() async {}
+
+  session() async {}
+
+  logOut() async {}
+
+  update() async {}
+
+  delete() async {}
 
   _from() {
     // TODO source => properties
