@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:frontend_job_recruitment/models/post.model.dart';
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
 class Company {
@@ -10,8 +8,8 @@ class Company {
   String _email;
   String _password;
   String _address;
-  File _logo;
-  File _certificate;
+  dynamic _logo;
+  dynamic _certificate;
 
   Company(
     this._id,
@@ -70,10 +68,24 @@ class Company {
   }
 
   _from(Map<String, dynamic> source) {
-    // TODO source => properties
+    _password = source['password'];
+    _name = source['name'];
+    _email = source['email'];
+    _id = source['id'];
+    _logo = source['logo'];
+    _certificate = source['certificate'];
+    _address = source['address'];
   }
 
   Map<String, dynamic> _to() {
-    return {};
+    return {
+      'address' : _address,
+      'certificate' : _certificate,
+      'logo' : _logo,
+      '_id' : _id,
+      'email' : _email,
+      'name' : _name,
+      'password' : _password,
+    };
   }
 }
