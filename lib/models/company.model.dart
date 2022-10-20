@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:frontend_job_recruitment/models/post.model.dart';
+import 'package:frontend_job_recruitment/services/http.service.dart';
 
 class Company {
   String? _id;
@@ -31,23 +33,47 @@ class Company {
         source['logo'],
       );
 
-  static get(String id) async {}
+  HTTP http = HTTP();
+  final String baseUrl = '/companies';
 
-  static getAll() {}
+  static get(String id) async {
+    return await HTTP()
+        .get(Uri.parse('/companies/${json.encode({'_id': id})}'));
+  }
 
-  signUp() async {}
+  static getAny(Map<String, dynamic> filter) async {
+    return await HTTP().get(Uri.parse('/companies/${json.encode(filter)}'));
+  }
 
-  signIn() async {}
+  static signUp(Map<String, dynamic> source) async {
+    return await HTTP().post(Uri.parse('/companies/register'), source);
+  }
 
-  session() async {}
+  static signIn(Map<String, dynamic> source) async {
+    return await HTTP().post(Uri.parse('/companies'), source);
+  }
 
-  logOut() async {}
+  session() async {
+    _from(await http.get(Uri.parse(baseUrl)));
+  }
 
-  update() async {}
+  logOut() async {
+    await http.delete(Uri.parse(baseUrl));
+  }
 
-  delete() async {}
+  update() async {
+    await http.patch(Uri.parse('$baseUrl/register'), _to());
+  }
 
-  _from() {
+  delete() async {
+    return await http.delete(Uri.parse('$baseUrl/register'));
+  }
+
+  _from(Map<String, dynamic> source) {
     // TODO source => properties
+  }
+
+  Map<String, dynamic> _to() {
+    return {};
   }
 }

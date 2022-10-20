@@ -8,19 +8,19 @@ import 'package:frontend_job_recruitment/environment.dart';
 
 class HTTP {
   final PersistCookieJar pcj = PersistCookieJar();
-  final Dio dio = Dio();
+  final Dio _dio = Dio();
   final Map<String, String> headers = {
     "content-type": "text/json",
   };
 
   HTTP() {
-    dio.interceptors.add(CookieManager(pcj));
-    dio.options.baseUrl = apiUrl;
+    _dio.interceptors.add(CookieManager(pcj));
+    _dio.options.baseUrl = apiUrl;
   }
 
   Future<Map<String, dynamic>> get(Uri uri) async {
     try {
-      Response<String> resp = await dio.getUri(uri);
+      Response<String> resp = await _dio.getUri(uri);
       Map<String, dynamic> data = json.decode(resp.data!);
       return data['data'];
     } on DioError catch (e) {
@@ -45,7 +45,7 @@ class HTTP {
     Map<String, dynamic> payload,
   ) async {
     try {
-      Response<String> resp = await dio.postUri(uri, data: payload);
+      Response<String> resp = await _dio.postUri(uri, data: payload);
       Map<String, dynamic> data = json.decode(resp.data!);
       return data['data'];
     } on DioError catch (e) {
@@ -70,7 +70,7 @@ class HTTP {
     Map<String, dynamic> payload,
   ) async {
     try {
-      Response<String> resp = await dio.patchUri(uri, data: payload);
+      Response<String> resp = await _dio.patchUri(uri, data: payload);
       Map<String, dynamic> data = json.decode(resp.data!);
       return data['data'];
     } on DioError catch (e) {
@@ -92,7 +92,7 @@ class HTTP {
 
   Future<Map<String, dynamic>> delete(Uri uri) async {
     try {
-      Response<String> resp = await dio.deleteUri(uri);
+      Response<String> resp = await _dio.deleteUri(uri);
       Map<String, dynamic> data = json.decode(resp.data!);
       return data['data'];
     } on DioError catch (e) {

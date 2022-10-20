@@ -31,30 +31,20 @@ class User {
   HTTP http = HTTP();
   final String baseUrl = '/users';
 
-  signUp() async {
-    return await http.post(
-      Uri.parse('$baseUrl/register'),
-      {'name': _name, 'email': _email, 'password': _password},
-    );
+  static signUp(Map<String, dynamic> source) async {
+    return await HTTP().post(Uri.parse('/users/register'), source);
   }
 
-  signIn() async {
-    Map<String, dynamic> user = await http.post(
-      Uri.parse(baseUrl),
-      {'email': _email, 'password': _password},
-    );
-    _postHistory = user['postHistory'];
-    return user;
+  static signIn(Map<String, dynamic> source) async {
+    return await HTTP().post(Uri.parse('/users'), source);
   }
 
   session() async {
-    Map<String, dynamic> user = await http.get(Uri.parse(baseUrl));
-    _postHistory = user['postHistory'];
-    return user;
+    _from(await http.get(Uri.parse(baseUrl)));
   }
 
   logOut() async {
-    return await http.delete(Uri.parse(baseUrl));
+    await http.delete(Uri.parse(baseUrl));
   }
 
   delete() async {
@@ -62,18 +52,22 @@ class User {
   }
 
   update() async {
-    Map<String, dynamic> user = await http.post(
-      Uri.parse('$baseUrl/register'),
-      {'name': _name, 'email': _email, 'password': _password},
-    );
-    _from(user);
-    return user;
+    await http.patch(Uri.parse('$baseUrl/register'), _to());
   }
 
   _from(Map<String, dynamic> source) {
-    _postHistory = source['postHistory'];
+    _postHistory = source['post_history'];
     _name = source['name'];
     _email = source['email'];
     _password = source['password'];
+  }
+
+  Map<String, dynamic> _to() {
+    return {
+      'email': _email,
+      'name': _name,
+      'password': _password,
+      'post_history': _postHistory,
+    };
   }
 }
