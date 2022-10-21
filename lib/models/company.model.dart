@@ -34,38 +34,25 @@ class Company {
   HTTP http = HTTP();
   final String baseUrl = '/companies';
 
-  static get(String id) async {
-    return await HTTP()
-        .get(Uri.parse('/companies/${json.encode({'_id': id})}'));
-  }
+  static get(String id) async =>
+      await HTTP().get(Uri.parse('/companies/${json.encode({'_id': id})}'));
 
-  static getAny(Map<String, dynamic> filter) async {
-    return await HTTP().get(Uri.parse('/companies/${json.encode(filter)}'));
-  }
+  static getAny(Map<String, dynamic> filter) async =>
+      await HTTP().get(Uri.parse('/companies/${json.encode(filter)}'));
 
-  static signUp(Map<String, dynamic> source) async {
-    return await HTTP().post(Uri.parse('/companies/register'), source);
-  }
+  static signUp(Map<String, dynamic> source) async =>
+      await HTTP().post(Uri.parse('/companies/register'), source);
 
-  static signIn(Map<String, dynamic> source) async {
-    return await HTTP().post(Uri.parse('/companies'), source);
-  }
+  static signIn(Map<String, dynamic> source) async =>
+      await HTTP().post(Uri.parse('/companies'), source);
 
-  session() async {
-    _from(await http.get(Uri.parse(baseUrl)));
-  }
+  session() async => _from(await http.get(Uri.parse(baseUrl)));
 
-  logOut() async {
-    await http.delete(Uri.parse(baseUrl));
-  }
+  logOut() async => await http.delete(Uri.parse(baseUrl));
 
-  update() async {
-    await http.patch(Uri.parse('$baseUrl/register'), _to());
-  }
+  update() async => http.patch(Uri.parse('$baseUrl/register'), _to());
 
-  delete() async {
-    return await http.delete(Uri.parse('$baseUrl/register'));
-  }
+  delete() async => await http.delete(Uri.parse('$baseUrl/register'));
 
   _from(Map<String, dynamic> source) {
     _password = source['password'];
@@ -79,13 +66,13 @@ class Company {
 
   Map<String, dynamic> _to() {
     return {
-      'address' : _address,
-      'certificate' : _certificate,
-      'logo' : _logo,
-      '_id' : _id,
-      'email' : _email,
-      'name' : _name,
-      'password' : _password,
+      'address': _address,
+      'certificate': _certificate,
+      'logo': _logo,
+      '_id': _id,
+      'email': _email,
+      'name': _name,
+      'password': _password,
     };
   }
 }

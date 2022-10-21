@@ -40,25 +40,16 @@ class Post {
   HTTP http = HTTP();
   final String baseUrl = '/posts';
 
-  static get(String id) async {
-    return await HTTP().get(Uri.parse('/posts/$id'));
-  }
+  static get(String id) async => await HTTP().get(Uri.parse('/posts/$id'));
 
-  static getAll() async {
-    return await HTTP().get(Uri.parse('/posts'));
-  }
+  static getAll() async => await HTTP().get(Uri.parse('/posts'));
 
-  static save(Map<String, dynamic> source) async {
-    return await HTTP().post(Uri.parse('/posts'), source);
-  }
+  static save(Map<String, dynamic> source) async =>
+      await HTTP().post(Uri.parse('/posts'), source);
 
-  update() async {
-    await http.patch(Uri.parse('$baseUrl/$_id'), _to());
-  }
+  update() async => await http.patch(Uri.parse('$baseUrl/$_id'), _to());
 
-  delete() async {
-    await http.delete(Uri.parse('$baseUrl/$_id'));
-  }
+  delete() async => await http.delete(Uri.parse('$baseUrl/$_id'));
 
   _from(Map<String, dynamic> source) {
     _position = source['position'];
@@ -74,14 +65,14 @@ class Post {
 
   Map<String, dynamic> _to() {
     return {
-      'email' : _email,
-      'author' : _author,
-      'banner' : _banner,
-      'mailing_address' : _mailingAddress,
-      'title' : _title,
-      'tel' : _tel,
-      'requirement' : _requirements,
-      'position' : _position,
+      'email': _email,
+      'author': _author,
+      'banner': _banner,
+      'mailing_address': _mailingAddress,
+      'title': _title,
+      'tel': _tel,
+      'requirement': _requirements,
+      'position': _position,
     };
   }
 }
