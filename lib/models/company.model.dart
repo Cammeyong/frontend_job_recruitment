@@ -8,8 +8,8 @@ class Company {
   String _email;
   String _password;
   String _address;
-  dynamic _logo;
-  dynamic _certificate;
+  Object? _logo;
+  Object? _certificate;
 
   Company(
     this._id,
@@ -21,12 +21,12 @@ class Company {
     this._logo,
   );
 
-  factory Company.from(Map<String, dynamic> source) => Company(
-        source['_id'],
-        source['email'],
-        source['password'],
-        source['name'],
-        source['address'],
+  factory Company.from(Map<String, Object?> source) => Company(
+        source['_id'] as String?,
+        source['email'] as String,
+        source['password'] as String,
+        source['name'] as String,
+        source['address'] as String,
         source['certificate'],
         source['logo'],
       );
@@ -37,13 +37,13 @@ class Company {
   static get(String id) async =>
       await HTTP().get(Uri.parse('/companies/${json.encode({'_id': id})}'));
 
-  static getAny(Map<String, dynamic> filter) async =>
+  static getAny(Map<String, Object?> filter) async =>
       await HTTP().get(Uri.parse('/companies/${json.encode(filter)}'));
 
-  static signUp(Map<String, dynamic> source) async =>
+  static signUp(Map<String, Object?> source) async =>
       await HTTP().post(Uri.parse('/companies/register'), source);
 
-  static signIn(Map<String, dynamic> source) async =>
+  static signIn(Map<String, Object?> source) async =>
       await HTTP().post(Uri.parse('/companies'), source);
 
   session() async => _from(await http.get(Uri.parse(baseUrl)));
@@ -54,17 +54,17 @@ class Company {
 
   delete() async => await http.delete(Uri.parse('$baseUrl/register'));
 
-  _from(Map<String, dynamic> source) {
-    _password = source['password'];
-    _name = source['name'];
-    _email = source['email'];
-    _id = source['id'];
+  _from(Map<String, Object?> source) {
+    _password = source['password'] as String;
+    _name = source['name'] as String;
+    _email = source['email'] as String;
+    _id = source['id'] as String;
     _logo = source['logo'];
     _certificate = source['certificate'];
-    _address = source['address'];
+    _address = source['address'] as String;
   }
 
-  Map<String, dynamic> _to() {
+  Map<String, Object?> _to() {
     return {
       'address': _address,
       'certificate': _certificate,

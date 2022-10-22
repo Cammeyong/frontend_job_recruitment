@@ -23,19 +23,23 @@ class User {
 
   User(this._id, this._name, this._email, this._password);
 
-  factory User.from(Map<String, dynamic> source) {
+  factory User.from(Map<String, Object?> source) {
     return User(
-        source['_id'], source['name'], source['email'], source['password']);
+      source['_id'] as String?,
+      source['name'] as String,
+      source['email'] as String,
+      source['password'] as String,
+    );
   }
 
   HTTP http = HTTP();
   final String baseUrl = '/users';
 
-  static signUp(Map<String, dynamic> source) async {
+  static signUp(Map<String, Object?> source) async {
     return await HTTP().post(Uri.parse('/users/register'), source);
   }
 
-  static signIn(Map<String, dynamic> source) async {
+  static signIn(Map<String, Object?> source) async {
     return await HTTP().post(Uri.parse('/users'), source);
   }
 
@@ -55,14 +59,14 @@ class User {
     await http.patch(Uri.parse('$baseUrl/register'), _to());
   }
 
-  _from(Map<String, dynamic> source) {
-    _postHistory = source['post_history'];
-    _name = source['name'];
-    _email = source['email'];
-    _password = source['password'];
+  _from(Map<String, Object?> source) {
+    _postHistory = source['post_history'] as List<String>;
+    _name = source['name'] as String;
+    _email = source['email'] as String;
+    _password = source['password'] as String;
   }
 
-  Map<String, dynamic> _to() {
+  Map<String, Object?> _to() {
     return {
       'email': _email,
       'name': _name,
