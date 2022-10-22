@@ -27,15 +27,10 @@ class HTTP {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        print(e.response!.data);
-        print(e.response!.headers);
-        print(e.response!.requestOptions);
         throw e.response!.data['error'];
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        print(e.requestOptions);
-        print(e.message);
-        return {};
+        throw 'Internal Error';
       }
     }
   }
@@ -52,15 +47,10 @@ class HTTP {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        print(e.response!.data);
-        print(e.response!.headers);
-        print(e.response!.requestOptions);
-        return e.response!.data['error'];
+        throw e.response!.data['error'];
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        print(e.requestOptions);
-        print(e.message);
-        return {};
+        throw 'Internal Error';
       }
     }
   }
@@ -77,15 +67,10 @@ class HTTP {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        print(e.response!.data);
-        print(e.response!.headers);
-        print(e.response!.requestOptions);
-        return e.response!.data['error'];
+        throw e.response!.data['error'];
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        print(e.requestOptions);
-        print(e.message);
-        return {};
+        throw 'Internal Error';
       }
     }
   }
@@ -99,15 +84,10 @@ class HTTP {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        print(e.response!.data);
-        print(e.response!.headers);
-        print(e.response!.requestOptions);
-        return e.response!.data['error'];
+        throw e.response!.data['error'];
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        print(e.requestOptions);
-        print(e.message);
-        return {};
+        throw 'Internal Error';
       }
     }
   }
