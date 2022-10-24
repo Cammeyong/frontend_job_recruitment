@@ -25,7 +25,7 @@ class Post {
     this._mailingAddress,
   );
 
-  factory Post.from(Map<String, Object?> source) => Post(
+  factory Post.fromJson(Map<String, Object?> source) => Post(
         source['_id'] as String,
         source['email'] as String,
         source['author'] as String,
@@ -47,7 +47,7 @@ class Post {
   static save(Map<String, Object?> source) async =>
       await HTTP().post(Uri.parse('/posts'), source);
 
-  update() async => await http.patch(Uri.parse('$baseUrl/$_id'), _to());
+  update() async => await http.patch(Uri.parse('$baseUrl/$_id'), toJson());
 
   delete() async => await http.delete(Uri.parse('$baseUrl/$_id'));
 
@@ -63,7 +63,7 @@ class Post {
     _id = source['_id'] as String;
   }
 
-  Map<String, Object?> _to() {
+  Map<String, Object?> toJson() {
     return {
       'email': _email,
       'author': _author,

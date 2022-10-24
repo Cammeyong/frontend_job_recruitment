@@ -23,7 +23,7 @@ class User {
 
   User(this._id, this._name, this._email, this._password);
 
-  factory User.from(Map<String, Object?> source) {
+  factory User.fromJson(Map<String, Object?> source) {
     return User(
       source['_id'] as String?,
       source['name'] as String,
@@ -56,7 +56,7 @@ class User {
   }
 
   update() async {
-    await http.patch(Uri.parse('$baseUrl/register'), _to());
+    await http.patch(Uri.parse('$baseUrl/register'), toJson());
   }
 
   _from(Map<String, Object?> source) {
@@ -66,7 +66,7 @@ class User {
     _password = source['password'] as String;
   }
 
-  Map<String, Object?> _to() {
+  Map<String, Object?> toJson() {
     return {
       'email': _email,
       'name': _name,

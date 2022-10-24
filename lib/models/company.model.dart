@@ -21,7 +21,7 @@ class Company {
     this._logo,
   );
 
-  factory Company.from(Map<String, Object?> source) => Company(
+  factory Company.fromJson(Map<String, Object?> source) => Company(
         source['_id'] as String?,
         source['email'] as String,
         source['password'] as String,
@@ -50,7 +50,7 @@ class Company {
 
   logOut() async => await http.delete(Uri.parse(baseUrl));
 
-  update() async => http.patch(Uri.parse('$baseUrl/register'), _to());
+  update() async => http.patch(Uri.parse('$baseUrl/register'), toJson());
 
   delete() async => await http.delete(Uri.parse('$baseUrl/register'));
 
@@ -64,7 +64,7 @@ class Company {
     _address = source['address'] as String;
   }
 
-  Map<String, Object?> _to() {
+  Map<String, Object?> toJson() {
     return {
       'address': _address,
       'certificate': _certificate,
