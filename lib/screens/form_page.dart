@@ -64,20 +64,22 @@ class _FormPageState extends State<FormPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                "Recruitee ",
-                style: TextStyle(color: Colors.grey),
-              ),
+              // const Text(
+              //   "Recruitee ",
+              //   style: TextStyle(color: Colors.grey),
+              // ),
               GestureDetector(
                 onTap: () {
                   // widget.toggleView();
                 },
                 child: const Text(
-                  'Sign In',
+                  'Recruitee',
                   style: TextStyle(
                       color: Colors.blueAccent, fontWeight: FontWeight.bold),
                 ),
               ),
+            ],
+          ),
               SafeArea(
                 child: Form(
                   key: _formKey,
@@ -200,8 +202,6 @@ class _FormPageState extends State<FormPage> {
                 ),
               ),
             ],
-          ),
-        ],
       ),
     )));
   }
