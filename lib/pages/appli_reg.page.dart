@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../Utils/ReferenceVariable.dart';
+
 // Define a custom Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+class ApplicantRegPage extends StatefulWidget {
+  final GlobalKey<FormState> formKey;
+  final ReferenceVariable<bool> toggle;
+
+  const ApplicantRegPage({super.key, required this.formKey, required this.toggle});
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  ApplicantRegPageState createState() {
+    return ApplicantRegPageState();
   }
 }
 
 // Define a corresponding State class.
 // This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm> {
+class ApplicantRegPageState extends State<ApplicantRegPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
