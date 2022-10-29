@@ -35,12 +35,12 @@ class User {
   HTTP http = HTTP();
   final String baseUrl = '/users';
 
-  static signUp(Map<String, Object?> source) async {
+  static Future<Map<String, Object?>> signUp(Map<String, Object?> source) async {
     return await HTTP().post(Uri.parse('/users/register'), source);
   }
 
-  static signIn(Map<String, Object?> source) async {
-    return await HTTP().post(Uri.parse('/users'), source);
+  static Future<Map<String, Object?>> signIn(Map<String, Object?> source) async {
+    return HTTP().post(Uri.parse('/users/login'), source);
   }
 
   session() async {
@@ -51,7 +51,7 @@ class User {
     await http.delete(Uri.parse(baseUrl));
   }
 
-  delete() async {
+  Future<Map<String, Object?>> delete() async {
     return await http.delete(Uri.parse('$baseUrl/register'));
   }
 
