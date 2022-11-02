@@ -57,6 +57,7 @@ class Post {
   Future<Map<String, Object?>> delete() async => await _http.delete(Uri.parse('$_baseUrl/$_id'));
 
   from(Map<String, Object> source) {
+    _id = source['_id'] as String? ?? _id;
     _position = source['position'] as String? ?? _position;
     _requirements = source['requirements'] as String? ?? _requirements;
     _tel = source['tel'] as String? ?? _tel;

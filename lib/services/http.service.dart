@@ -18,6 +18,7 @@ class HTTP {
   Future<Map<String, Object?>> get(Uri uri) async {
     try {
       Response<String> resp = await _dio.getUri(uri);
+      // resp.headers['jwt_auth'];
       Map<String, Object?> data = json.decode(resp.data!);
       return (data);
     } on DioError catch (e) {
@@ -39,6 +40,7 @@ class HTTP {
   ) async {
     try {
       Response<String> resp = await _dio.postUri(uri, data: payload);
+      // resp.headers['jwt_auth'];
       Map<String, Object?> data = json.decode(resp.data!);
       print(data);
       return (data);
@@ -60,6 +62,7 @@ class HTTP {
   ) async {
     try {
       Response<String> resp = await _dio.patchUri(uri, data: payload);
+      // resp.headers['jwt_auth'];
       Map<String, Object?> data = json.decode(resp.data!);
       print(data);
       return (data);
@@ -78,6 +81,7 @@ class HTTP {
   Future<Map<String, Object?>> delete(Uri uri) async {
     try {
       Response<String> resp = await _dio.deleteUri(uri);
+      // resp.headers['jwt_auth'];
       Map<String, Object?> data = json.decode(resp.data!);
       print(data);
       return (data);

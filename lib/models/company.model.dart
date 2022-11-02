@@ -54,10 +54,10 @@ class Company {
   Future<Map<String, Object?>> update() async => await _http.patch(Uri.parse(_baseUrl), toJson());
 
   from(Map<String, Object?> source) {
+    _id = source['id'] as String? ?? _id;
     _password = source['password'] as String? ?? _password;
     _name = source['name'] as String? ?? _name;
     _email = source['email'] as String? ?? _email;
-    _id = source['id'] as String? ?? _id;
     _logo = source['logo'] as File? ?? _logo;
     _certificate = source['certificate'] as File? ?? _certificate;
     _address = source['address'] as String? ?? _address;

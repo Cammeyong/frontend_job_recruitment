@@ -36,6 +36,7 @@ class User {
   Future<Map<String, Object?>> update() async => await _http.patch(Uri.parse(baseUrl), toJson());
 
   from(Map<String, Object?> source) {
+    _id = source['_id'] as String? ?? _id;
     _postHistory = source['post_history'] as List<String>? ?? _postHistory;
     _name = source['name'] as String? ?? _name;
     _email = source['email'] as String? ?? _email;
