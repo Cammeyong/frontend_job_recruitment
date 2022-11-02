@@ -49,7 +49,7 @@ class Post {
       await _http.get(Uri.parse('$_baseUrl?${pageFilter.getQueryString()}'));
 
   static Future<Map<String, Object?>> save(Map<String, Object> source) async =>
-      await _http.post(Uri.parse('/posts'), source);
+      await _http.post(Uri.parse(_baseUrl), source);
 
   Future<Map<String, Object?>> update() async =>
       await _http.patch(Uri.parse('$_baseUrl/$_id'), toJson());
