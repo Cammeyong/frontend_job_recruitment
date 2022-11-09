@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../custom_form_field.dart';
-import '../custom_image_form_field.dart';
+import 'package:frontend_job_recruitment/widgets/custom_form_field.dart';
+// import '../custom_form_field.dart';
+// import '../custom_image_form_field.dart';
+import '../widgets/custom_image_form_field.dart';
 // import 'package:footer/footer.dart';
 // import 'package:footer/footer_view.dart';
 

@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomFormField extends StatelessWidget {
-  const CustomFormField({Key? key, required this.hintText,
+  const CustomFormField({
+    Key? key,
+    required this.hintText,
     this.inputFormatters,
-    this.validator, required bool obsureText,}) : super(key: key);
+    this.validator,
+    required bool obsureText,
+  }) : super(key: key);
 
- final String hintText;
+  final String hintText;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
+
   // final TextStyle textstyle = TextStyle(color: Colors.blue, fontWeight: FontWeight.bold);
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class CustomFormField extends StatelessWidget {
     );
   }
 }
+
 // ignore: camel_case_extensions
 extension extString on String {
   bool get isValidEmail {
@@ -36,24 +42,24 @@ extension extString on String {
     return emailRegExp.hasMatch(this);
   }
 
-  bool get isValidName{
-    final nameRegExp = RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+  bool get isValidName {
+    final nameRegExp =
+        RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
     return nameRegExp.hasMatch(this);
   }
 
-  bool get isValidPassword{
-final passwordRegExp = 
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>');
+  bool get isValidPassword {
+    final passwordRegExp = RegExp(
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>');
     return passwordRegExp.hasMatch(this);
   }
 
-  bool get isNotNull{
-    return this!= null;
-}
+  bool get isNotNull {
+    return this != null;
+  }
 
-  bool get isValidPhone{
+  bool get isValidPhone {
     final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
     return phoneRegExp.hasMatch(this);
   }
-
 }

@@ -13,6 +13,7 @@ class CustomImageFormField extends StatelessWidget {
   final String? Function(File?) validator;
   final Function(File) onChanged;
   File? _pickedFile;
+
   @override
   Widget build(BuildContext context) {
     return FormField<File>(
@@ -23,10 +24,10 @@ class CustomImageFormField extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   FilePickerResult? file = await FilePicker.platform.pickFiles(
-                    type: FileType.custom, 
-                    allowMultiple: true, 
-                    allowedExtensions: ['jpg', 'png' 'pdf', 'doc'],
-                    );
+                    type: FileType.custom,
+                    allowMultiple: true,
+                    allowedExtensions: ['jpg', 'png'],
+                  );
                   if (file != null) {
                     _pickedFile = File(file.files.first.path!);
                     onChanged.call(_pickedFile!);
@@ -56,10 +57,10 @@ class CustomImageFormField extends StatelessWidget {
               GestureDetector( 
                 onTap: () async {
                   FilePickerResult? file = await FilePicker.platform.pickFiles(
-                    type: FileType.custom, 
-                    allowMultiple: true, 
-                    allowedExtensions: ['jpg', 'png' 'pdf', 'doc'],
-                    );
+                    type: FileType.custom,
+                    allowMultiple: true,
+                    allowedExtensions: ['jpg', 'png', 'pdf', 'doc'],
+                  );
                   if (file != null) {
                     _pickedFile = File(file.files.first.path!);
                     onChanged.call(_pickedFile!);
@@ -93,10 +94,10 @@ class CustomImageFormField extends StatelessWidget {
                   child: Text(
                     formFieldState.errorText!,
                     style: TextStyle(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 13,
-                      color: Colors.red[700],
-                      height: 0.5),
+                        fontStyle: FontStyle.normal,
+                        fontSize: 13,
+                        color: Colors.red[700],
+                        height: 0.5),
                   ),
                 )
             ],

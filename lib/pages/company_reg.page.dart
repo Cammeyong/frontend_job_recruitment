@@ -1,39 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../custom_form_field.dart';
 
-// Define a custom Form widget.
-class AppliRegForm extends StatefulWidget {
-  // const AppliRegForm({super.key});
-  // ignore: prefer_typing_uninitialized_variables
-  final toggleView;
-  const AppliRegForm({super.key, this.toggleView});
+import '../Utils/ReferenceVariable.dart';
+import '../widgets/custom_form_field.dart';
+import '../widgets/custom_image_form_field.dart';
+
+class CompanyRegPage extends StatefulWidget {
+  final GlobalKey<FormState> formKey;
+  final ReferenceVariable<bool> toggle;
+
+  const CompanyRegPage({Key? key, required this.formKey, required this.toggle}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AppliRegFormState createState() => _AppliRegFormState();
+  State<CompanyRegPage> createState() => _CompanyRegPageState();
 }
 
-// Define a corresponding State class. This class holds data related to the form.
-class _AppliRegFormState extends State<AppliRegForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  // ignore: prefer_typing_uninitialized_variables
-  var toggleView;
-
-  @override
-  void setState(VoidCallback fn) {
-    toggleView = widget.toggleView;
-    super.setState(fn);
-  }
-
+class _CompanyRegPageState extends State<CompanyRegPage> {
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
-    return Form(
-      key: _formKey,
-      child: SafeArea(
-        child: SingleChildScrollView(
+    return ListView(
+      children: <Widget>[
+        Container(
+          height: 150.0,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: Colors.greenAccent),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Image.asset(
+            'images/meeting-1.jpg',
+            height: 150.0,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 30.0),
+          child: const Text(
+            'Company Registration',
+            style: TextStyle(
+              color: Color.fromARGB(209, 43, 37, 131),
+              fontWeight: FontWeight.bold,
+              fontSize: 26.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // const Text(
+            //   "Recruitee ",
+            //   style: TextStyle(color: Colors.grey),
+            // ),
+            GestureDetector(
+              onTap: () {
+                // widget.toggleView();
+              },
+              child: const Text(
+                'Recruitee',
+                style: TextStyle(
+                    color: Colors.blueAccent, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        Form(
+          key: widget.formKey,
           child: Column(
             children: [
               CustomFormField(
@@ -56,7 +88,7 @@ class _AppliRegFormState extends State<AppliRegForm> {
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(r"[a-zA-Z]+|\s"),
-                  )
+                  ),
                 ],
                 validator: (val) {
                   if (!val!.isValidName) {
@@ -70,7 +102,6 @@ class _AppliRegFormState extends State<AppliRegForm> {
                 hintText: 'Street Address',
                 validator: (val) {
                   if (val == null) return 'Please enter street address';
-                  return null;
                 },
                 obsureText: false,
               ),
@@ -80,7 +111,6 @@ class _AppliRegFormState extends State<AppliRegForm> {
                   if (val == null) {
                     return 'Please enter Town or City';
                   }
-                  return null;
                 },
                 obsureText: false,
               ),
@@ -88,7 +118,6 @@ class _AppliRegFormState extends State<AppliRegForm> {
                 hintText: 'Country',
                 validator: (val) {
                   if (val == null) return 'Please enter your Country';
-                  return null;
                 },
                 obsureText: false,
               ),
@@ -103,7 +132,6 @@ class _AppliRegFormState extends State<AppliRegForm> {
                   if (!val!.isValidPhone) {
                     return 'Enter a valid phone number';
                   }
-                  return null;
                 },
                 obsureText: false,
               ),
@@ -120,7 +148,6 @@ class _AppliRegFormState extends State<AppliRegForm> {
                 hintText: 'Email',
                 validator: (val) {
                   if (!val!.isValidEmail) return 'Enter valid email';
-                  return null;
                 },
                 obsureText: false,
               ),
@@ -130,7 +157,6 @@ class _AppliRegFormState extends State<AppliRegForm> {
                   if (!val!.isValidPassword) {
                     return 'Enter valid password';
                   }
-                  return null;
                 },
                 obsureText: true,
               ),
@@ -140,30 +166,32 @@ class _AppliRegFormState extends State<AppliRegForm> {
                   if (!val!.isValidPassword) {
                     return 'Password do not match';
                   }
-                  return null;
                 },
                 obsureText: true,
               ),
+              CustomImageFormField(
+                validator: (val) {
+                  if (val == null) return 'Select Logo';
+                  return null;
+                },
+                onChanged: (file) {},
+              ),
+              // CustomImageFormField(
+              //   validator: (val) {
+              //     if (val == null) return 'Select business certificate';
+              //   },
+              //   onChanged: (file) {},
+              // ),
               ElevatedButton(
                 onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
-                  }
+                  widget.formKey.currentState!.validate();
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 222, 74, 248),
-                ),
-                
                 child: const Text('Register', style: TextStyle()),
-              ),
+              )
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
