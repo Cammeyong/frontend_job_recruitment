@@ -79,28 +79,32 @@ class _AuthState extends State<Auth> {
                     TextButton(
                       onPressed: toggleView,
                       style: TextButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                        backgroundColor: showFormPage
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : const Color.fromARGB(255, 92, 99, 177),
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                         // shape: RoundedRectangleBorder(
                         //   borderRadius: BorderRadius.circular(10.0)
                         // ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Recruiter',
-                        style: TextStyle(color: Color.fromARGB(255, 92, 99, 177)),
+                        style: TextStyle(color: showFormPage ? const Color.fromARGB(255, 92, 99, 177) : Colors.white),
                       ),
                     ),
                     TextButton(
                       onPressed: toggleView,
                       style: TextButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 92, 99, 177),
+                        backgroundColor: !showFormPage
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : const Color.fromARGB(255, 92, 99, 177),
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Recruitee',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: !showFormPage ? const Color.fromARGB(255, 92, 99, 177) : Colors.white),
                       ),
                     ),
                   ],
