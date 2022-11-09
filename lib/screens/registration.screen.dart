@@ -39,7 +39,7 @@ class _FormPageState extends State<FormPage> {
           )
         ],
       ),
-      body: toggle.variable ? CompanyRegPage(formKey: _formKey, toggle: toggle) : ApplicantRegPage(formKey: _formKey, toggle: toggle),
+      // body: toggle.variable ? CompanyRegPage(formKey: _formKey, toggle: toggle) : ApplicantRegPage(formKey: _formKey, toggle: toggle),
     );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_job_recruitment/pages/appli_reg.page.dart';
 // import 'package:flutter/widgets.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/appBar.dart';
-import 'appli_reg.dart';
+// import 'appli_reg.dart';
 import 'form_page.dart';
 
 // import 'package:frontend_job_recruitment/screens/form_page.dart';
