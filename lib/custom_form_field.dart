@@ -12,12 +12,18 @@ class CustomFormField extends StatelessWidget {
   // final TextStyle textstyle = TextStyle(color: Colors.blue, fontWeight: FontWeight.bold);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Container(
+      // margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical:16),
       child: TextFormField(
         inputFormatters: inputFormatters,
         validator: validator,
-        decoration: InputDecoration(hintText: hintText, border: const OutlineInputBorder(),),
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Color.fromARGB(255, 92, 99, 177)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(0),),
+        ),
         
       ),
     );

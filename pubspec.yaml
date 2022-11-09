@@ -44,6 +44,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  footer:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -65,10 +66,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/contact-us.jpeg
-    - images/FAQ.jpg
-    - images/meeting-1.jpg
-    - images/search.jpg
+    - images/
+   
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

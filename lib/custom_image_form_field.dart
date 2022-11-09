@@ -9,6 +9,7 @@ class CustomImageFormField extends StatelessWidget {
     required this.validator,
     required this.onChanged,
   }) : super(key: key);
+  
   final String? Function(File?) validator;
   final Function(File) onChanged;
   File? _pickedFile;
@@ -32,27 +33,27 @@ class CustomImageFormField extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  margin: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(10),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   decoration: BoxDecoration(
-                    color:Colors.greenAccent,
-                    borderRadius: BorderRadius.circular(8),
-                    border:Border.all(width: 1, color:Colors.greenAccent),
+                    color:const Color.fromARGB(255, 36, 209, 43),
+                    borderRadius: BorderRadius.circular(0),
+                    border:Border.all(width: 1, color: const Color.fromARGB(255, 36, 209, 43)),
                   ),
                   child: Center(
                     child:Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: const [
-                        Icon(Icons.upload_file),
-                        Text('Upload Logo')
+                        // Icon(Icons.upload_file),
+                        Text('Upload Logo', style: TextStyle( color: Colors.white),)
                       ],
                     )
                   ),
                 ),
               ),
-              GestureDetector(
+              GestureDetector( 
                 onTap: () async {
                   FilePickerResult? file = await FilePicker.platform.pickFiles(
                     type: FileType.custom, 
@@ -67,19 +68,20 @@ class CustomImageFormField extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.all(8),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   decoration: BoxDecoration(
-                    color:Colors.blueAccent,
-                    borderRadius: BorderRadius.circular(8),
-                    border:Border.all(width: 1, color:Colors.blueAccent),
+                    color:const Color.fromARGB(255, 0, 146, 128),
+                    borderRadius: BorderRadius.circular(0),
+                    border:Border.all(width: 1, color:const Color.fromARGB(255, 0, 146, 128)),
                   ),
                   child: Center(
                     child:Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: const [
-                        Icon(Icons.upload_file),
-                        Text('Upload Certificate')
+                        // Icon(Icons.upload_file),
+                        Text('Upload Certificate', style: TextStyle( color: Colors.white),
+                        )
                       ],
                     )
                   ),

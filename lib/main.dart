@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'screens/auth.dart';
 import 'screens/form_page.dart';
+import 'widgets/appBar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Job Recruitement App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const FormPage(),
+      home: const Auth(),
+      // home: const AmberAppBar(),
     );
   }
 }

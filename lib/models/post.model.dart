@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
@@ -66,7 +66,7 @@ class Post {
   Map<String, Object?> toJson() {
     return {
       'email': _email,
-      'author': _author,
+      'author': _author, 
       'banner': _banner,
       'mailing_address': _mailingAddress,
       'title': _title,
