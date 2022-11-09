@@ -22,13 +22,13 @@ class _AuthState extends State<Auth> {
   void toggleView() {
     setState(() => showFormPage = !showFormPage);
   }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey(); // create a global key for scaffoldstate
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         extendBodyBehindAppBar: true,
         appBar: AmberAppBar(
           scaffoldKey: _scaffoldKey,
@@ -54,9 +54,7 @@ class _AuthState extends State<Auth> {
                 margin: const EdgeInsets.only(top: 35.0, bottom: 15),
                 // height: 10,
                 child: Text(
-                  showFormPage
-                      ? 'Company Registration'
-                      : 'Applicant Registration',
+                  showFormPage ? 'Company Registration' : 'Applicant Registration',
                   style: const TextStyle(
                     color: Color.fromARGB(255, 92, 99, 177),
                     fontWeight: FontWeight.bold,
@@ -72,7 +70,7 @@ class _AuthState extends State<Auth> {
                   ),
                 ),
                 height: 40,
-                width: 200,
+                width: 215,
                 // margin: const EdgeInsets.all(15),
                 // padding: const EdgeInsets.all(0),
                 child: Row(
@@ -81,27 +79,28 @@ class _AuthState extends State<Auth> {
                     TextButton(
                       onPressed: toggleView,
                       style: TextButton.styleFrom(
-                        backgroundColor:
-                        const Color.fromARGB(255, 255, 255, 255),
+                        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                         // shape: RoundedRectangleBorder(
                         //   borderRadius: BorderRadius.circular(10.0)
                         // ),
-                      ),  
-                      child: const Text('Recruiter',
-                        style: TextStyle(color: Color.fromARGB(255,92,99,177)),
+                      ),
+                      child: const Text(
+                        'Recruiter',
+                        style: TextStyle(color: Color.fromARGB(255, 92, 99, 177)),
                       ),
                     ),
                     TextButton(
                       onPressed: toggleView,
                       style: TextButton.styleFrom(
-                        backgroundColor:
-                        const Color.fromARGB(255, 92, 99, 177),
+                        backgroundColor: const Color.fromARGB(255, 92, 99, 177),
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      ),  
-                      child: const Text('Recruitee',style: TextStyle(color: Colors.white),
+                      ),
+                      child: const Text(
+                        'Recruitee',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

@@ -4,8 +4,8 @@ import 'screens/auth.dart';
 // import 'widgets/appBar.dart';
 import 'package:flutter/services.dart';
 
-
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Job Recruitement App',
+      title: 'Job Recruitment App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,

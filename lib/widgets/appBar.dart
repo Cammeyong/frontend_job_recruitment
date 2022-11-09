@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 
 class AmberAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const AmberAppBar({super.key, required GlobalKey<ScaffoldState> scaffoldKey});
+  const AmberAppBar({super.key, required this.scaffoldKey});
+
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Size get preferredSize => const Size.fromHeight(30);
 
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_typing_uninitialized_variables
-    var widget;
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -35,7 +35,7 @@ class AmberAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.menu),
           label: const Text(''),
           onPressed: () {
-            widget.scaffoldKey.currentState!.openEndDrawer();
+            scaffoldKey.currentState?.openEndDrawer();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
