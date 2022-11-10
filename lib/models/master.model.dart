@@ -5,6 +5,7 @@ import 'package:frontend_job_recruitment/models/user.model.dart';
 class Master {
   User? userModel;
   Company? companyModel;
-  List<Company?> companyCatalogue = [];
-  List<Post?> postModel = [];
+  Post? postModel;
+  List<Company> companyCatalogue = [];
+  List<Post> postCatalogue = [];
 }

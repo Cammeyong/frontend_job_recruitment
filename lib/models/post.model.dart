@@ -2,10 +2,15 @@
 
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
+import '../tools/httpTools.dart';
+
+const String _baseUrl = '/posts';
+HTTP _http = HTTP();
+
 class Post {
-  String? _id;
+  String _id;
   String _title;
-  Object? _banner;
+  File _banner;
   String _position;
   String _requirements;
   String _tel;
@@ -25,11 +30,11 @@ class Post {
     this._mailingAddress,
   );
 
-  factory Post.fromJson(Map<String, Object?> source) => Post(
+  factory Post.fromJson(Map<String, Object> source) => Post(
         source['_id'] as String,
         source['email'] as String,
         source['author'] as String,
-        source['banner'],
+        source['banner'] as File,
         source['position'] as String,
         source['requirements'] as String,
         source['tel'] as String,
@@ -37,34 +42,35 @@ class Post {
         source['mailing_address'] as String,
       );
 
-  HTTP http = HTTP();
-  final String baseUrl = '/posts';
+  static Future<Map<String, Object?>> get(String id) async =>
+      await _http.get(Uri.parse('$_baseUrl/$id'));
 
-  static get(String id) async => await HTTP().get(Uri.parse('/posts/$id'));
+  static Future<Map<String, Object?>> getMany(PagedFiltered pageFilter) async =>
+      await _http.get(Uri.parse('$_baseUrl?${pageFilter.getQueryString()}'));
 
-  static getAll() async => await HTTP().get(Uri.parse('/posts'));
+  static Future<Map<String, Object?>> save(Map<String, Object> source) async =>
+      await _http.post(Uri.parse(_baseUrl), source);
 
-  static save(Map<String, Object?> source) async =>
-      await HTTP().post(Uri.parse('/posts'), source);
+  Future<Map<String, Object?>> update() async =>
+      await _http.patch(Uri.parse('$_baseUrl/$_id'), toJson());
 
-  update() async => await http.patch(Uri.parse('$baseUrl/$_id'), toJson());
+  Future<Map<String, Object?>> delete() async => await _http.delete(Uri.parse('$_baseUrl/$_id'));
 
-  delete() async => await http.delete(Uri.parse('$baseUrl/$_id'));
-
-  _from(Map<String, Object?> source) {
-    _position = source['position'] as String;
-    _requirements = source['requirements'] as String;
-    _tel = source['tel'] as String;
-    _title = source['title'] as String;
-    _mailingAddress = source['mailing_address'] as String;
-    _banner = source['banner'];
-    _author = source['author'] as String;
-    _email = source['email'] as String;
-    _id = source['_id'] as String;
+  from(Map<String, Object> source) {
+    _id = source['_id'] as String? ?? _id;
+    _position = source['position'] as String? ?? _position;
+    _requirements = source['requirements'] as String? ?? _requirements;
+    _tel = source['tel'] as String? ?? _tel;
+    _title = source['title'] as String? ?? _title;
+    _mailingAddress = source['mailing_address'] as String? ?? _mailingAddress;
+    _banner = source['banner'] as File? ?? _banner;
+    _author = source['author'] as String? ?? _author;
+    _email = source['email'] as String? ?? _email;
   }
 
-  Map<String, Object?> toJson() {
+  Map<String, Object> toJson() {
     return {
+      '_id': _id,
       'email': _email,
       'author': _author, 
       'banner': _banner,
