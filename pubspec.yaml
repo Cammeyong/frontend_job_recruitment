@@ -33,7 +33,8 @@ dependencies:
     sdk: flutter
   cookie_jar: '>=3.0.1'
   dio: '>=4.0.0'
-  dio_cookie_manager:  '>=1.0.0'
+  shared_preferences: ^2.0.15
+  file_picker: ^5.2.1
 
 
   # The following adds the Cupertino Icons font to your application.

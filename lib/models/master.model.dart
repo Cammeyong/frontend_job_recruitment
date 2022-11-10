@@ -6,6 +6,6 @@ class Master {
   User? userModel;
   Company? companyModel;
   Post? postModel;
-  List<Company> companyCatalogue = [];
-  List<Post> postCatalogue = [];
+  List<Company?> companyCatalogue = [];
+  List<Post?> postCatalogue = [];
 }
