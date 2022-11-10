@@ -19,7 +19,7 @@ class CustomFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical:16),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical:4),
       child: TextFormField(
         inputFormatters: inputFormatters,
         validator: validator,

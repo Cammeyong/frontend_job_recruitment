@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 
-class AmberAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const AmberAppBar({super.key, required this.scaffoldKey});
+class AmberAppBarGradient extends StatelessWidget implements PreferredSizeWidget {
+  const AmberAppBarGradient({super.key, required this.scaffoldKey});
 
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
-  Size get preferredSize => const Size.fromHeight(30);
+  Size get preferredSize => const Size.fromHeight(56);
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,14 @@ class AmberAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
-      
-      
+      flexibleSpace: Container(
+        decoration:const BoxDecoration(
+          gradient:LinearGradient(
+            colors: [Color.fromARGB(255, 92, 99, 177), Color.fromARGB(255, 183, 73, 162)]
+          )
+        )
+      )
     );
-    // const Drawer(),
+    
   }
 }

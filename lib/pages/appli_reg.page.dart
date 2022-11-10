@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 // import '../custom_form_field.dart';
 import '../Utils/ReferenceVariable.dart';
 import '../widgets/custom_form_field.dart';
-import '../Utils/ReferenceVariable.dart';
+
 
 // Define a custom Form widget.
 class AppliRegForm extends StatefulWidget {
