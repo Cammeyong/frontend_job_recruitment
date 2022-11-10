@@ -1,73 +1,52 @@
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
+HTTP _http = HTTP();
+const String _baseUrl = '/users';
+
 class User {
-  String? _id;
-  String? _name;
-
-  String? get name {
-    return _name;
-  }
-
+  String _id;
+  String _name;
   String _email;
-
-  String? get email {
-    return _email;
-  }
-
   String _password;
-  List<String> _postHistory = [];
-
-  List<String> get postHistory {
-    return _postHistory;
-  }
+  List<dynamic> _postHistory = [];
 
   User(this._id, this._name, this._email, this._password);
 
   factory User.fromJson(Map<String, Object?> source) {
     return User(
-      source['_id'] as String?,
+      source['_id'] as String,
       source['name'] as String,
       source['email'] as String,
       source['password'] as String,
     );
   }
 
-  HTTP http = HTTP();
-  final String baseUrl = '/users';
+  static Future<Map<String, dynamic>?> signUp(Map<String, Object> source) async =>
+      await _http.post(Uri.parse(_baseUrl), source);
 
-  static signUp(Map<String, Object?> source) async {
-    return await HTTP().post(Uri.parse('/users/register'), source);
-  }
+  static Future<User?> signIn(Map<String, Object> source) async => User.fromJson(
+      (await _http.post(Uri.parse('$_baseUrl/login'), source))!['data'] as Map<String, dynamic>);
 
-  static signIn(Map<String, Object?> source) async {
-    return await HTTP().post(Uri.parse('/users'), source);
-  }
+  static Future<User?> session() async =>
+      User.fromJson((await _http.get(Uri.parse(_baseUrl)))!['data'] as Map<String, dynamic>);
 
-  session() async {
-    _from(await http.get(Uri.parse(baseUrl)));
-  }
+  Future<Map<String, dynamic>?> logOut() async => await _http.delete(Uri.parse('/logout'));
 
-  logOut() async {
-    await http.delete(Uri.parse(baseUrl));
-  }
+  Future<Map<String, dynamic>?> delete() async => await _http.delete(Uri.parse(_baseUrl));
 
-  delete() async {
-    return await http.delete(Uri.parse('$baseUrl/register'));
-  }
+  Future<Map<String, dynamic>?> update() async => await _http.patch(Uri.parse(_baseUrl), toJson());
 
-  update() async {
-    await http.patch(Uri.parse('$baseUrl/register'), toJson());
-  }
-
-  _from(Map<String, Object?> source) {
-    _postHistory = source['post_history'] as List<String>;
-    _name = source['name'] as String;
-    _email = source['email'] as String;
-    _password = source['password'] as String;
+  from(Map<String, Object?> source) {
+    _id = source['_id'] as String? ?? _id;
+    _postHistory = source['post_history'] as List<dynamic>? ?? _postHistory;
+    _name = source['name'] as String? ?? _name;
+    _email = source['email'] as String? ?? _email;
+    _password = source['password'] as String? ?? _password;
   }
 
   Map<String, Object?> toJson() {
     return {
+      '_id': _id,
       'email': _email,
       'name': _name,
       'password': _password,

@@ -1,11 +1,16 @@
-// import 'dart:io';
-
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
+import '../services/httpTools.dart';
+
+HTTP _http = HTTP();
+const String _baseUrl = '/posts';
+
 class Post {
-  String? _id;
+  String _id;
   String _title;
-  Object? _banner;
+  String _banner;
   String _position;
   String _requirements;
   String _tel;
@@ -29,7 +34,7 @@ class Post {
         source['_id'] as String,
         source['email'] as String,
         source['author'] as String,
-        source['banner'],
+        source['banner'] as String,
         source['position'] as String,
         source['requirements'] as String,
         source['tel'] as String,
@@ -37,27 +42,34 @@ class Post {
         source['mailing_address'] as String,
       );
 
-  HTTP http = HTTP();
-  final String baseUrl = '/posts';
+  static Future<Map<String, dynamic>?> get(String id) async =>
+      await _http.get(Uri.parse('$_baseUrl/$id'));
 
-  static get(String id) async => await HTTP().get(Uri.parse('/posts/$id'));
+  static Future<Map<String, dynamic>?> getMany(PagedFiltered pageFilter) async =>
+      await _http.get(Uri.parse('$_baseUrl?${pageFilter.getQueryString()}'));
 
-  static getAll() async => await HTTP().get(Uri.parse('/posts'));
+  static Future<Map<String, dynamic>?> save(Map<String, Object> source) async {
+    source['image'] = await MultipartFile.fromFile(source['image'] as String);
+    source['clip'] = await MultipartFile.fromFile(source['clip'] as String);
+    return await _http.postFD(Uri.parse(_baseUrl), FormData.fromMap(source));
+  }
 
-  static save(Map<String, Object?> source) async =>
-      await HTTP().post(Uri.parse('/posts'), source);
+  Future<Map<String, dynamic>?> update() async {
+    var source = toJson();
+    source['image'] = File(source['image'] as String);
+    source['clip'] = File(source['clip'] as String);
+    return await _http.patchFD(Uri.parse('$_baseUrl/$_id'), FormData.fromMap(source));
+  }
 
-  update() async => await http.patch(Uri.parse('$baseUrl/$_id'), toJson());
+  Future<Map<String, dynamic>?> delete() async => await _http.delete(Uri.parse('$_baseUrl/$_id'));
 
-  delete() async => await http.delete(Uri.parse('$baseUrl/$_id'));
-
-  _from(Map<String, Object?> source) {
+  from(Map<String, Object?> source) {
     _position = source['position'] as String;
     _requirements = source['requirements'] as String;
     _tel = source['tel'] as String;
     _title = source['title'] as String;
     _mailingAddress = source['mailing_address'] as String;
-    _banner = source['banner'];
+    _banner = source['banner'] as String;
     _author = source['author'] as String;
     _email = source['email'] as String;
     _id = source['_id'] as String;

@@ -1,15 +1,16 @@
-import 'dart:convert';
-
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
+HTTP _http = HTTP();
+const String _baseUrl = '/companies';
+
 class Company {
-  String? _id;
+  String _id;
   String _name;
   String _email;
   String _password;
   String _address;
-  Object? _logo;
-  Object? _certificate;
+  String _logo;
+  String _certificate;
 
   Company(
     this._id,
@@ -22,45 +23,39 @@ class Company {
   );
 
   factory Company.fromJson(Map<String, Object?> source) => Company(
-        source['_id'] as String?,
+        source['_id'] as String,
         source['email'] as String,
         source['password'] as String,
         source['name'] as String,
         source['address'] as String,
-        source['certificate'],
-        source['logo'],
+        source['certificate'] as String,
+        source['logo'] as String,
       );
 
-  HTTP http = HTTP();
-  final String baseUrl = '/companies';
+  static get(String id) async => await HTTP().get(Uri.parse('/companies/$id'));
 
-  static get(String id) async =>
-      await HTTP().get(Uri.parse('/companies/${json.encode({'_id': id})}'));
+  static Future<Map<String, dynamic>?> signUp(Map<String, Object> source) async =>
+      await _http.post(Uri.parse(_baseUrl), source);
 
-  static getAny(Map<String, Object?> filter) async =>
-      await HTTP().get(Uri.parse('/companies/${json.encode(filter)}'));
+  static Future<Company?> signIn(Map<String, Object> source) async => Company.fromJson(
+      (await _http.post(Uri.parse('$_baseUrl/login'), source))!['data'] as Map<String, dynamic>);
 
-  static signUp(Map<String, Object?> source) async =>
-      await HTTP().post(Uri.parse('/companies/register'), source);
+  static Future<Company?> session() async =>
+      Company.fromJson((await _http.get(Uri.parse(_baseUrl)))!['data'] as Map<String, dynamic>);
 
-  static signIn(Map<String, Object?> source) async =>
-      await HTTP().post(Uri.parse('/companies'), source);
+  Future<Map<String, dynamic>?> logOut() async => await _http.delete(Uri.parse('/logout'));
 
-  session() async => _from(await http.get(Uri.parse(baseUrl)));
+  Future<Map<String, dynamic>?> delete() async => await _http.delete(Uri.parse(_baseUrl));
 
-  logOut() async => await http.delete(Uri.parse(baseUrl));
+  Future<Map<String, dynamic>?> update() async => await _http.patch(Uri.parse(_baseUrl), toJson());
 
-  update() async => http.patch(Uri.parse('$baseUrl/register'), toJson());
-
-  delete() async => await http.delete(Uri.parse('$baseUrl/register'));
-
-  _from(Map<String, Object?> source) {
+  from(Map<String, Object?> source) {
     _password = source['password'] as String;
     _name = source['name'] as String;
     _email = source['email'] as String;
     _id = source['id'] as String;
-    _logo = source['logo'];
-    _certificate = source['certificate'];
+    _logo = source['logo'] as String;
+    _certificate = source['certificate'] as String;
     _address = source['address'] as String;
   }
 
