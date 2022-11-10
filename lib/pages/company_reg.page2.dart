@@ -9,17 +9,17 @@ import '../widgets/custom_image_form_field.dart';
 // import 'package:footer/footer.dart';
 // import 'package:footer/footer_view.dart';
 
-class FormPage extends StatefulWidget {
+class CompanyRegPage extends StatefulWidget {
   // const FormPage({Key? key,}) : super(key: key);
   // ignore: prefer_typing_uninitialized_variables
   final toggleView;
-  const FormPage({super.key, this.toggleView});
+  const CompanyRegPage({super.key, this.toggleView});
 
   @override
-  _FormPageState createState() => _FormPageState();
+  _CompanyRegPageState createState() => _CompanyRegPageState();
 }
 
-class _FormPageState extends State<FormPage> {
+class _CompanyRegPageState extends State<CompanyRegPage> {
   final _formKey = GlobalKey<FormState>();
   // ignore: prefer_typing_uninitialized_variables
   var toggleView;

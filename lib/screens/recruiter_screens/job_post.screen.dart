@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_job_recruitment/widgets/appBar_gradient.dart';
+import 'package:frontend_job_recruitment/widgets/app_drawer.dart';
 
 class JobPostScreen extends StatefulWidget {
   const JobPostScreen({super.key});
@@ -32,9 +34,15 @@ class _JobPostScreenState extends State<JobPostScreen> with SingleTickerProvider
     _tabCtrl = TabController(initialIndex: _selectedTab, length: _tabs.length, vsync: this);
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+        appBar: AmberAppBarGradient(
+          scaffoldKey: _scaffoldKey,
+        ),
+        endDrawer: const AppDrawer(),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
         decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black)),

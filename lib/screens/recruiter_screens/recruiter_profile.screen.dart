@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_job_recruitment/tools/string_extension.dart';
 import 'package:frontend_job_recruitment/screens/recruiter_screens/job_post.screen.dart';
+import 'package:frontend_job_recruitment/widgets/appBar_gradient.dart';
+import 'package:frontend_job_recruitment/widgets/app_drawer.dart';
 import 'package:frontend_job_recruitment/widgets/layout/spacers.dart';
 
 class RecruiterHome extends StatelessWidget {
@@ -18,9 +20,16 @@ class RecruiterHome extends StatelessWidget {
     'website': '',
   };
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+        appBar: AmberAppBarGradient(
+          scaffoldKey: _scaffoldKey,
+        ),
+        endDrawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

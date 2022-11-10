@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:frontend_job_recruitment/Utils/environment.dart';
-import 'package:frontend_job_recruitment/environment.dart';
+// import 'package:frontend_job_recruitment/environment.dart';
 
 class HTTP {
   final Dio _dio = Dio();
