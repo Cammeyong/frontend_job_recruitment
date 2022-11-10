@@ -1,93 +1,168 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:cookie_jar/cookie_jar.dart';
-import 'package:frontend_job_recruitment/Utils/environment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/environment.dart';
 
 class HTTP {
-  final PersistCookieJar pcj = PersistCookieJar();
   final Dio _dio = Dio();
-  final Map<String, String> headers = {
-    "content-type": "text/json",
-  };
 
   HTTP() {
-    _dio.interceptors.add(CookieManager(pcj));
     _dio.options.baseUrl = apiUrl;
   }
 
-  Future<Map<String, Object?>> get(Uri uri) async {
+  Future<Map<String, dynamic>?> get(Uri uri) async {
+    final prefs = await SharedPreferences.getInstance();
+    _dio.options.headers['Authorization'] = prefs.getString('jwt_auth') ?? '';
     try {
       Response<String> resp = await _dio.getUri(uri);
-      Map<String, Object?> data = json.decode(resp.data!);
-      return (data['data'] as Map<String, Object?>);
+      if (resp.headers['jwt_auth'] != null && resp.headers['jwt_auth']!.isNotEmpty) {
+        prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
+      }
+      Map<String, dynamic> data = json.decode(resp.data!);
+      return (data);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        throw e.response!.data['error'];
+        Map<String, dynamic> data = jsonDecode(e.response!.data);
+        throw data['message'] as String;
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        throw 'Internal Error';
+        // throw 'Internal Error, please check to ensure that you have a stable internet connection. \nThe server may also be down, in which case, our team is working to fix this problem.';
+        throw '$e';
       }
     }
   }
 
-  Future<Map<String, Object?>> post(
-    Uri uri,
-    Map<String, Object?> payload,
-  ) async {
+  Future<Map<String, dynamic>?> post(
+      Uri uri,
+      Map<String, dynamic> payload,
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+    _dio.options.headers['Authorization'] = prefs.getString('jwt_auth') ?? '';
     try {
       Response<String> resp = await _dio.postUri(uri, data: payload);
-      Map<String, Object?> data = json.decode(resp.data!);
-      return (data['data'] as Map<String, Object?>);
+      if (resp.headers['jwt_auth'] != null && resp.headers['jwt_auth']!.isNotEmpty) {
+        prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
+      }
+      Map<String, dynamic> data = json.decode(resp.data!);
+      return (data);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        throw e.response!.data['error'];
+        Map<String, dynamic> data = json.decode(e.response!.data);
+        throw data['message'] as String;
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        throw 'Internal Error';
+        // throw 'Internal Error, please check to ensure that you have a stable internet connection. \nThe server may also be down, in which case, our team is working to fix this problem.';
+        throw '$e';
       }
     }
   }
 
-  Future<Map<String, Object?>> patch(
-    Uri uri,
-    Map<String, Object?> payload,
-  ) async {
+  Future<Map<String, dynamic>?> postFD(
+      Uri uri,
+      FormData payload,
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+    _dio.options.headers['Authorization'] = prefs.getString('jwt_auth') ?? '';
+    try {
+      Response<String> resp = await _dio.postUri(uri, data: payload);
+      if (resp.headers['jwt_auth'] != null && resp.headers['jwt_auth']!.isNotEmpty) {
+        prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
+      }
+      Map<String, dynamic> data = json.decode(resp.data!);
+      return (data);
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        Map<String, dynamic> data = json.decode(e.response!.data);
+        throw data['message'] as String;
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // throw 'Internal Error, please check to ensure that you have a stable internet connection. \nThe server may also be down, in which case, our team is working to fix this problem.';
+        throw '$e';
+      }
+    }
+  }
+
+  Future<Map<String, dynamic>?> patch(
+      Uri uri,
+      Map<String, dynamic> payload,
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+    _dio.options.headers['Authorization'] = prefs.getString('jwt_auth') ?? '';
     try {
       Response<String> resp = await _dio.patchUri(uri, data: payload);
-      Map<String, Object?> data = json.decode(resp.data!);
-      return (data['data'] as Map<String, Object?>);
+      if (resp.headers['jwt_auth'] != null && resp.headers['jwt_auth']!.isNotEmpty) {
+        prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
+      }
+      Map<String, dynamic> data = json.decode(resp.data!);
+      return (data);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        throw e.response!.data['error'];
+        Map<String, dynamic> data = json.decode(e.response!.data);
+        throw data['message'] as String;
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        throw 'Internal Error';
+        // throw 'Internal Error, please check to ensure that you have a stable internet connection. \nThe server may also be down, in which case, our team is working to fix this problem.';
+        throw '$e';
       }
     }
   }
 
-  Future<Map<String, Object?>> delete(Uri uri) async {
+  Future<Map<String, dynamic>?> patchFD(
+      Uri uri,
+      FormData payload,
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+    _dio.options.headers['Authorization'] = prefs.getString('jwt_auth') ?? '';
     try {
-      Response<String> resp = await _dio.deleteUri(uri);
-      Map<String, Object?> data = json.decode(resp.data!);
-      return (data['data'] as Map<String, Object?>);
+      Response<String> resp = await _dio.patchUri(uri, data: payload);
+      if (resp.headers['jwt_auth'] != null) {
+        prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
+      }
+      Map<String, dynamic> data = json.decode(resp.data!);
+      return (data);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        throw e.response!.data['error'];
+        Map<String, dynamic> data = json.decode(e.response!.data);
+        throw data['message'] as String;
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        throw 'Internal Error';
+        // throw 'Internal Error, please check to ensure that you have a stable internet connection. \nThe server may also be down, in which case, our team is working to fix this problem.';
+        throw '$e';
+      }
+    }
+  }
+
+  Future<Map<String, dynamic>?> delete(Uri uri) async {
+    final prefs = await SharedPreferences.getInstance();
+    _dio.options.headers['Authorization'] = prefs.getString('jwt_auth') ?? '';
+    try {
+      Response<String> resp = await _dio.deleteUri(uri);
+      if (resp.headers['jwt_auth'] != null) {
+        prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
+      }
+      Map<String, dynamic> data = json.decode(resp.data!);
+      return (data);
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        Map<String, dynamic> data = json.decode(e.response!.data);
+        throw data['message'] as String;
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // throw 'Internal Error, please check to ensure that you have a stable internet connection. \nThe server may also be down, in which case, our team is working to fix this problem.';
+        throw '$e';
       }
     }
   }
