@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_job_recruitment/tools/validators.dart';
 
 class JobPostScreen extends StatefulWidget {
   const JobPostScreen({super.key});
@@ -79,10 +80,17 @@ class _JobPostScreenState extends State<JobPostScreen> with SingleTickerProvider
   }
 }
 
-class InformationForm extends StatelessWidget {
+class InformationForm extends StatefulWidget {
   const InformationForm({required this.onSubmitted, super.key});
 
   final void Function() onSubmitted;
+
+  @override
+  State<InformationForm> createState() => _InformationFormState();
+}
+
+class _InformationFormState extends State<InformationForm> {
+  final _form = GlobalKey<FormState>();
 
   Widget _addSpacing(double size, [bool horizontal = false]) {
     return horizontal ? SizedBox(width: size) : SizedBox(height: size);
@@ -91,24 +99,30 @@ class InformationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _form,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text("Job Description", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
           _addSpacing(18),
-          TextFormField(decoration: const InputDecoration(labelText: "Title")),
+          TextFormField(
+            decoration: const InputDecoration(labelText: "Title"),
+            validator: validateInput('title', {'required': true}),
+          ),
           _addSpacing(16),
           Row(
             children: [
               Flexible(
                 child: TextFormField(
-                  decoration: const InputDecoration(labelText: "Occupation"),
+                  decoration: const InputDecoration(labelText: "Occupation", errorMaxLines: 2),
+                  validator: validateInput('occupation', {'required': true}),
                 ),
               ),
               _addSpacing(24, true),
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Speciality"),
+                  validator: validateInput('speciality', {'required': true}),
                 ),
               ),
             ],
@@ -116,6 +130,7 @@ class InformationForm extends StatelessWidget {
           _addSpacing(16),
           TextFormField(
             decoration: const InputDecoration(labelText: "Description"),
+            validator: validateInput('description', {'required': true}),
             keyboardType: TextInputType.multiline,
             maxLines: 4,
           ),
@@ -125,12 +140,16 @@ class InformationForm extends StatelessWidget {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Internal Job Number"),
+                  keyboardType: TextInputType.number,
+                  validator: validateInput('number', {'required': true, 'min': 0}),
                 ),
               ),
               _addSpacing(24, true),
               Flexible(
                 child: TextFormField(
-                  decoration: const InputDecoration(labelText: "Candidate Contact"),
+                  decoration: const InputDecoration(labelText: "Candidate Contact", errorMaxLines: 2),
+                  keyboardType: TextInputType.phone,
+                  validator: validateInput('contact number', {'required': true}),
                 ),
               ),
             ],
@@ -143,12 +162,14 @@ class InformationForm extends StatelessWidget {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Country"),
+                  validator: validateInput('country', {'required': true}),
                 ),
               ),
               _addSpacing(24, true),
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Zip Code"),
+                  validator: validateInput('zip code', {'required': true}),
                 ),
               ),
             ],
@@ -159,12 +180,14 @@ class InformationForm extends StatelessWidget {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "City or State"),
+                  validator: validateInput('value', {'required': true}),
                 ),
               ),
               _addSpacing(24, true),
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Address"),
+                  validator: validateInput('address', {'required': true}),
                 ),
               ),
             ],
@@ -172,7 +195,10 @@ class InformationForm extends StatelessWidget {
           _addSpacing(36),
           Center(
             child: ElevatedButton(
-              onPressed: onSubmitted,
+              onPressed: () {
+                if (_form.currentState == null || !_form.currentState!.validate()) return;
+                widget.onSubmitted();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFB749A3),
                 foregroundColor: Colors.white,
@@ -186,10 +212,17 @@ class InformationForm extends StatelessWidget {
   }
 }
 
-class DetailsForm extends StatelessWidget {
+class DetailsForm extends StatefulWidget {
   const DetailsForm({required this.onSubmitted, super.key});
 
   final void Function() onSubmitted;
+
+  @override
+  State<DetailsForm> createState() => _DetailsFormState();
+}
+
+class _DetailsFormState extends State<DetailsForm> {
+  final _form = GlobalKey<FormState>();
 
   Widget _addSpacing(double size, [bool horizontal = false]) {
     return horizontal ? SizedBox(width: size) : SizedBox(height: size);
@@ -198,6 +231,7 @@ class DetailsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _form,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -210,12 +244,14 @@ class DetailsForm extends StatelessWidget {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Position Type"),
+                  validator: validateInput('position', {'required': true}),
                 ),
               ),
               _addSpacing(24, true),
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Experience Level"),
+                  validator: validateInput('level', {'required': true}),
                 ),
               ),
             ],
@@ -223,6 +259,7 @@ class DetailsForm extends StatelessWidget {
           _addSpacing(12),
           TextFormField(
             decoration: const InputDecoration(labelText: "Educational Level"),
+            validator: validateInput('level', {'required': true}),
           ),
           _addSpacing(24),
           const Text("Salary Details", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
@@ -231,13 +268,17 @@ class DetailsForm extends StatelessWidget {
             children: [
               Flexible(
                 child: TextFormField(
-                  decoration: const InputDecoration(labelText: "Salary Min"),
+                  decoration: const InputDecoration(labelText: "Salary Min", errorMaxLines: 2),
+                  keyboardType: TextInputType.number,
+                  validator: validateInput('minimum salary', {'required': true, 'min': 0}),
                 ),
               ),
               _addSpacing(24, true),
               Flexible(
                 child: TextFormField(
-                  decoration: const InputDecoration(labelText: "Salary Max"),
+                  decoration: const InputDecoration(labelText: "Salary Max", errorMaxLines: 2),
+                  keyboardType: TextInputType.number,
+                  validator: validateInput('maximum salary', {'required': true, 'min': 0}),
                 ),
               ),
             ],
@@ -245,7 +286,10 @@ class DetailsForm extends StatelessWidget {
           _addSpacing(36),
           Center(
             child: ElevatedButton(
-              onPressed: onSubmitted,
+              onPressed: () {
+                if (_form.currentState == null || !_form.currentState!.validate()) return;
+                widget.onSubmitted();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFB749A3),
                 foregroundColor: Colors.white,
