@@ -32,7 +32,7 @@ class Company {
         source['logo'] as String,
       );
 
-  static get(String id) async => await HTTP().get(Uri.parse('/companies/$id'));
+  static get(String id) async => await HTTP().get(Uri.parse('$_baseUrl/$id'));
 
   static Future<Map<String, dynamic>?> signUp(Map<String, Object> source) async =>
       await _http.post(Uri.parse(_baseUrl), source);
