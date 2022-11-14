@@ -4,7 +4,7 @@ import 'package:frontend_job_recruitment/pages/appli_reg.page.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/appBar.dart';
 // import 'appli_reg.dart';
-import 'form_page.dart';
+import '../pages/company_reg.page2.dart';
 
 // import 'package:frontend_job_recruitment/screens/form_page.dart';
 // import 'package:frontend_job_recruitment/screens/appli_reg.dart';
@@ -113,7 +113,7 @@ class _AuthState extends State<Auth> {
             ],
           ),
           showFormPage
-              ? Expanded(child: FormPage(toggleView: toggleView))
+              ? Expanded(child: CompanyRegPage(toggleView: toggleView))
               : Expanded(child: AppliRegForm(toggleView: toggleView))
         ]));
   }
