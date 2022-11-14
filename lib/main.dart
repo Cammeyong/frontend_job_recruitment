@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_job_recruitment/screens/landing.screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import 'models/master.model.dart';
 
+Provider<Master> masterProvider = Provider<Master>((ref) => Master());
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,14 +22,15 @@ class MyApp extends StatelessWidget {
   //this widget is the root of your application
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Amber Employ',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Amber Employ',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          textTheme: GoogleFonts.interTextTheme(),
+        ),
+        home: Landing(),
       ),
-      home: Container(),
     );
   }
 }
