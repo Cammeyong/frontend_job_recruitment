@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class HeadBar extends AppBar {
   final ScaffoldState? scaffold;
-  HeadBar({Key? key, required this.scaffold})
+  final Function callback;
+  HeadBar({Key? key, required this.scaffold, required this.callback})
       : super(
             key: key,
             backgroundColor: Colors.transparent,
@@ -16,7 +17,9 @@ class HeadBar extends AppBar {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    callback();
+                  },
                   icon: const Icon(
                     Icons.person_outline,
                     color: Colors.white,

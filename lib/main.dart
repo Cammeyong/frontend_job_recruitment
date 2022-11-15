@@ -4,10 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_job_recruitment/screens/landing.screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'models/master.model.dart';
-
-Provider<Master> masterProvider = Provider<Master>((ref) => Master());
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -29,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           textTheme: GoogleFonts.interTextTheme(),
         ),
-        home: Landing(),
+        home: const Landing(),
       ),
     );
   }

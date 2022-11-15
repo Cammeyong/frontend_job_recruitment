@@ -25,24 +25,22 @@ class CustomTextField extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              width: 1,
-              color: Colors.transparent,
+            borderSide: BorderSide(
+              width: 2,
+              color: paletteIndigo,
             ),
-            borderRadius: BorderRadius.circular(30),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
               color: paletteIndigo,
             ),
-            borderRadius: BorderRadius.circular(30),
           ),
           floatingLabelStyle: TextStyle(
             color: paletteIndigo,
           ),
-          labelStyle: const TextStyle(
-            color: Colors.white,
+          labelStyle: TextStyle(
+            color: paletteIndigo,
           ),
           labelText: title,
         ),

@@ -92,35 +92,38 @@ class Footer extends StatelessWidget {
               thickness: 2,
               color: Colors.white,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'FOLLOW US',
-                  style: subTitleStyle.merge(TextStyle(color: paletteMagenta, letterSpacing: 3)),
-                ),
-                const Padding(padding: EdgeInsets.only(top: 20)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.whatsapp,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                    Icon(
-                      Icons.tiktok,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                    Icon(
-                      Icons.facebook,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ],
-                )
-              ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'FOLLOW US',
+                    style: subTitleStyle.merge(TextStyle(color: paletteMagenta, letterSpacing: 3)),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.whatsapp,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                      Icon(
+                        Icons.tiktok,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                      Icon(
+                        Icons.facebook,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             )
           ],
         ),

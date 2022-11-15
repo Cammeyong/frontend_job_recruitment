@@ -1,15 +1,18 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_job_recruitment/providers/landing_pages.provider.dart';
+import 'package:frontend_job_recruitment/screens/landing.screen.dart';
 import 'package:frontend_job_recruitment/utils/colors.dart';
+import 'package:frontend_job_recruitment/widgets/button1.widget.dart';
 
-class HeadBanner extends StatelessWidget {
+class HeadBanner extends ConsumerWidget {
   final bool applyButton;
 
   const HeadBanner({Key? key, required this.applyButton}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
         Container(
@@ -79,14 +82,11 @@ class HeadBanner extends StatelessWidget {
               ),
               const Padding(padding: EdgeInsets.only(top: 20)),
               applyButton
-                  ? MaterialButton(
-                      color: paletteMagenta,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                      onPressed: () {},
-                      child: const Text(
-                        'APPLY',
-                        style: TextStyle(color: Colors.white, letterSpacing: 4),
-                      ),
+                  ? Button1(
+                      title: 'APPLY',
+                      callback: () {
+                        ref.watch(landingPagesProvider.notifier).setPage(LandingPages.registration);
+                      },
                     )
                   : Container(),
             ],

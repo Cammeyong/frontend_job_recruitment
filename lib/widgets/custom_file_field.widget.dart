@@ -49,20 +49,20 @@ class _CustomFileFieldState extends State<CustomFileField> {
           },
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
               border: Border.all(color: paletteIndigo, width: 2),
               color: _file != null ? paletteMagenta : Colors.transparent,
             ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.title,
-                  style: TextStyle(color: _file == null ? paletteMagenta : Colors.white),
+                  style: TextStyle(color: _file == null ? paletteMagenta : paletteIndigo),
                 ),
                 Icon(
                   _file != null ? Icons.file_copy_rounded : Icons.file_upload_outlined,
-                  color: _file == null ? paletteMagenta : Colors.white,
+                  color: _file == null ? paletteMagenta : paletteIndigo,
                 )
               ],
             ),
