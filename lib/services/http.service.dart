@@ -22,14 +22,14 @@ class HTTP {
       Map<String, Object?> data = json.decode(resp.data!);
       return (data);
     } on DioError catch (e) {
-      print(e);
+      print(e.response);
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
         throw e.response!.data['error'];
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        throw 'Internal Error';
+        throw Exception('Internal Error');
       }
     }
   }

@@ -25,7 +25,23 @@ class _JobPostScreenState extends State<JobPostScreen> with SingleTickerProvider
   ];
 
   int _selectedTab = 0;
+  int _maxChoosableTab = 0;
   late final TabController _tabCtrl;
+
+  _onInfoFormSubmit(Map<String, dynamic> data) {
+    print(data);
+
+    _tabCtrl.animateTo(1);
+    setState(() {
+      _selectedTab = _tabCtrl.index;
+      _maxChoosableTab = 1;
+    });
+  }
+
+  _onDetailFormSubmit(Map<String, dynamic> data) {
+    print(data);
+    Navigator.of(context).pop();
+  }
 
   @override
   void initState() {
@@ -45,7 +61,7 @@ class _JobPostScreenState extends State<JobPostScreen> with SingleTickerProvider
               controller: _tabCtrl,
               onTap: (value) {
                 setState(() {
-                  _selectedTab = value;
+                  _selectedTab = value <= _maxChoosableTab ? value : _maxChoosableTab;
                 });
               },
               tabs: _tabs,
@@ -67,23 +83,12 @@ class _JobPostScreenState extends State<JobPostScreen> with SingleTickerProvider
       ),
     );
   }
-
-  _onInfoFormSubmit() {
-    setState(() {
-      _tabCtrl.animateTo(1);
-      _selectedTab = _tabCtrl.index;
-    });
-  }
-
-  _onDetailFormSubmit() {
-    Navigator.of(context).pop();
-  }
 }
 
 class InformationForm extends StatefulWidget {
   const InformationForm({required this.onSubmitted, super.key});
 
-  final void Function() onSubmitted;
+  final void Function(Map<String, dynamic> data) onSubmitted;
 
   @override
   State<InformationForm> createState() => _InformationFormState();
@@ -91,6 +96,19 @@ class InformationForm extends StatefulWidget {
 
 class _InformationFormState extends State<InformationForm> {
   final _form = GlobalKey<FormState>();
+
+  final Map<String, dynamic> _data = {
+    "title": "",
+    "occupation": "",
+    "speciality": "",
+    "description": "",
+    "internalJobNumber": "",
+    "internalContact": "",
+    "country": "",
+    "zipCode": "",
+    "city": "",
+    "address": "",
+  };
 
   Widget _addSpacing(double size, [bool horizontal = false]) {
     return horizontal ? SizedBox(width: size) : SizedBox(height: size);
@@ -108,6 +126,7 @@ class _InformationFormState extends State<InformationForm> {
           TextFormField(
             decoration: const InputDecoration(labelText: "Title"),
             validator: validateInput('title', {'required': true}),
+            onChanged: (value) => _data['title'] = value,
           ),
           _addSpacing(16),
           Row(
@@ -116,6 +135,7 @@ class _InformationFormState extends State<InformationForm> {
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Occupation", errorMaxLines: 2),
                   validator: validateInput('occupation', {'required': true}),
+                  onChanged: (value) => _data['occupation'] = value,
                 ),
               ),
               _addSpacing(24, true),
@@ -123,6 +143,7 @@ class _InformationFormState extends State<InformationForm> {
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Speciality"),
                   validator: validateInput('speciality', {'required': true}),
+                  onChanged: (value) => _data['speciality'] = value,
                 ),
               ),
             ],
@@ -131,6 +152,7 @@ class _InformationFormState extends State<InformationForm> {
           TextFormField(
             decoration: const InputDecoration(labelText: "Description"),
             validator: validateInput('description', {'required': true}),
+            onChanged: (value) => _data['description'] = value,
             keyboardType: TextInputType.multiline,
             maxLines: 4,
           ),
@@ -140,6 +162,7 @@ class _InformationFormState extends State<InformationForm> {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Internal Job Number"),
+                  onChanged: (value) => _data['internalJobNumber'] = value,
                   keyboardType: TextInputType.number,
                   validator: validateInput('number', {'required': true, 'min': 0}),
                 ),
@@ -148,6 +171,7 @@ class _InformationFormState extends State<InformationForm> {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Candidate Contact", errorMaxLines: 2),
+                  onChanged: (value) => _data['candidateContact'] = value,
                   keyboardType: TextInputType.phone,
                   validator: validateInput('contact number', {'required': true}),
                 ),
@@ -155,13 +179,14 @@ class _InformationFormState extends State<InformationForm> {
             ],
           ),
           _addSpacing(24),
-          const Text("Job Description", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+          const Text("Job Location", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
           _addSpacing(18),
           Row(
             children: [
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Country"),
+                  onChanged: (value) => _data['country'] = value,
                   validator: validateInput('country', {'required': true}),
                 ),
               ),
@@ -169,6 +194,7 @@ class _InformationFormState extends State<InformationForm> {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Zip Code"),
+                  onChanged: (value) => _data['zipCode'] = value,
                   validator: validateInput('zip code', {'required': true}),
                 ),
               ),
@@ -180,6 +206,7 @@ class _InformationFormState extends State<InformationForm> {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "City or State"),
+                  onChanged: (value) => _data['city'] = value,
                   validator: validateInput('value', {'required': true}),
                 ),
               ),
@@ -187,6 +214,7 @@ class _InformationFormState extends State<InformationForm> {
               Flexible(
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Address"),
+                  onChanged: (value) => _data['address'] = value,
                   validator: validateInput('address', {'required': true}),
                 ),
               ),
@@ -197,7 +225,7 @@ class _InformationFormState extends State<InformationForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_form.currentState == null || !_form.currentState!.validate()) return;
-                widget.onSubmitted();
+                widget.onSubmitted(_data);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFB749A3),
@@ -215,7 +243,7 @@ class _InformationFormState extends State<InformationForm> {
 class DetailsForm extends StatefulWidget {
   const DetailsForm({required this.onSubmitted, super.key});
 
-  final void Function() onSubmitted;
+  final void Function(Map<String, dynamic> data) onSubmitted;
 
   @override
   State<DetailsForm> createState() => _DetailsFormState();
@@ -227,6 +255,14 @@ class _DetailsFormState extends State<DetailsForm> {
   Widget _addSpacing(double size, [bool horizontal = false]) {
     return horizontal ? SizedBox(width: size) : SizedBox(height: size);
   }
+
+  final Map<String, dynamic> _data = {
+    "positionType": "",
+    "experienceLevel": "",
+    "educationalLevel": "",
+    "salaryMin": "",
+    "salaryMax": "",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -245,6 +281,7 @@ class _DetailsFormState extends State<DetailsForm> {
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Position Type"),
                   validator: validateInput('position', {'required': true}),
+                  onChanged: (value) => _data['positionType'] = value,
                 ),
               ),
               _addSpacing(24, true),
@@ -252,6 +289,7 @@ class _DetailsFormState extends State<DetailsForm> {
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: "Experience Level"),
                   validator: validateInput('level', {'required': true}),
+                  onChanged: (value) => _data['experienceLevel'] = value,
                 ),
               ),
             ],
@@ -260,6 +298,7 @@ class _DetailsFormState extends State<DetailsForm> {
           TextFormField(
             decoration: const InputDecoration(labelText: "Educational Level"),
             validator: validateInput('level', {'required': true}),
+            onChanged: (value) => _data['educationalLevel'] = value,
           ),
           _addSpacing(24),
           const Text("Salary Details", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
@@ -271,6 +310,7 @@ class _DetailsFormState extends State<DetailsForm> {
                   decoration: const InputDecoration(labelText: "Salary Min", errorMaxLines: 2),
                   keyboardType: TextInputType.number,
                   validator: validateInput('minimum salary', {'required': true, 'min': 0}),
+                  onChanged: (value) => _data['salaryMin'] = value,
                 ),
               ),
               _addSpacing(24, true),
@@ -279,6 +319,7 @@ class _DetailsFormState extends State<DetailsForm> {
                   decoration: const InputDecoration(labelText: "Salary Max", errorMaxLines: 2),
                   keyboardType: TextInputType.number,
                   validator: validateInput('maximum salary', {'required': true, 'min': 0}),
+                  onChanged: (value) => _data['salaryMax'] = value,
                 ),
               ),
             ],
@@ -288,7 +329,7 @@ class _DetailsFormState extends State<DetailsForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_form.currentState == null || !_form.currentState!.validate()) return;
-                widget.onSubmitted();
+                widget.onSubmitted(_data);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFB749A3),

@@ -25,10 +25,11 @@ class RecruiterHome extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-                // TODO: Get image src
-                // decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage(''))),
-                ),
+            Image.asset(
+              'assets/images/recruiter-image.jpg',
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 12.0),
               child: CircleAvatar(
