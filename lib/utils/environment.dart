@@ -1,1 +1,1 @@
-const String apiUrl = 'amber-employ-api.herokuapp.com/api/v1';
+const String apiUrl = 'https://aemploy-api.herokuapp.com/api/v1';

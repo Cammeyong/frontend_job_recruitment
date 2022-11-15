@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../widgets/success_snackbar.widget.dart';
 import 'colors.dart';
 
-void asyncResponseHandler<T>(BuildContext context, NavigatorState nav, ScaffoldMessengerState messenger, Future<T?> requester, Function resolver) async {
+void asyncResponseHandler<T>(String msg, BuildContext context, NavigatorState nav,
+    ScaffoldMessengerState messenger, Future<T?> requester, Function(Object object) resolver) async {
   showDialog(
     context: context,
     builder: (context) => Center(
@@ -20,9 +21,7 @@ void asyncResponseHandler<T>(BuildContext context, NavigatorState nav, ScaffoldM
   var response = await requester;
   if (response != null) {
     nav.pop();
-    resolver();
-    messenger.showSnackBar(
-        SuccessSnackBar(msg: 'Registered Successfully')
-    );
+    resolver(response);
+    messenger.showSnackBar(SuccessSnackBar(msg: msg));
   }
 }

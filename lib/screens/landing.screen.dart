@@ -43,6 +43,7 @@ class _LandingState extends ConsumerState<Landing> {
           },
         ),
         extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
         endDrawer: LayoutBuilder(builder: (context, box) => LandingDrawer(box: box)),
         body: LayoutBuilder(builder: (context, box) {
           LandingPages pageSelector = ref.watch(landingPagesProvider);

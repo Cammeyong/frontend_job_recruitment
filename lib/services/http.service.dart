@@ -47,6 +47,7 @@ class HTTP {
         prefs.setString('jwt_auth', resp.headers['jwt_auth']![0]);
       }
       Map<String, dynamic> data = json.decode(resp.data!);
+      print('DATA $data');
       return (data);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code

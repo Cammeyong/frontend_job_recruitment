@@ -7,6 +7,7 @@ import 'button1.widget.dart';
 
 class RegisterCompanyForm extends StatefulWidget {
   final Function(Map<String, String> form) callback;
+
   const RegisterCompanyForm({Key? key, required this.callback}) : super(key: key);
 
   @override
@@ -126,7 +127,15 @@ class _RegisterCompanyFormState extends State<RegisterCompanyForm> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 30),
-          child: Button1(title: 'Register', callback: () {}),
+          child: Button1(
+            title: 'Register',
+            callback: () {
+              Form.of(context)!.save();
+              if (Form.of(context)!.validate()) {
+                widget.callback(form);
+              }
+            },
+          ),
         ),
       ],
     );

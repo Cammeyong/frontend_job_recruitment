@@ -79,6 +79,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                               opacity: value,
                               child: RegisterApplicantForm(callback: (form) async {
                                 asyncResponseHandler<Map<String, dynamic>>(
+                                  'Registration Successful.',
                                   context,
                                   nav,
                                   messenger,
@@ -88,7 +89,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                                       ErrorSnackBar(err: '$err'),
                                     );
                                   }),
-                                  () {
+                                  (object) {
                                     ref
                                         .watch(landingPagesProvider.notifier)
                                         .setPage(LandingPages.login);
@@ -106,6 +107,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                               opacity: value,
                               child: RegisterCompanyForm(callback: (form) {
                                 asyncResponseHandler<Map<String, dynamic>>(
+                                  'Registration Successful.',
                                   context,
                                   nav,
                                   messenger,
@@ -115,7 +117,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                                       ErrorSnackBar(err: '$err'),
                                     );
                                   }),
-                                  () {
+                                  (object) {
                                     ref
                                         .watch(landingPagesProvider.notifier)
                                         .setPage(LandingPages.login);

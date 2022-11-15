@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_job_recruitment/screens/landing.screen.dart';
 import 'package:frontend_job_recruitment/widgets/footer.widget.dart';
 import 'package:frontend_job_recruitment/widgets/login.widget.dart';
 
@@ -44,17 +43,14 @@ class _LoginPageState extends State<LoginPage> {
                 child: RoundedToggle(
                   box: widget.box,
                   callback: (toggle) async {
-                    setState(() {
-                      this.toggle = toggle;
-                    });
+                    this.toggle = toggle;
                   },
                   option1: 'Applicant',
                   option2: 'Company',
                 ),
               ),
               const Padding(padding: EdgeInsets.only(top: 30)),
-              LoginForm(
-                  callback: () => !toggle ? LandingPages.userProfile : LandingPages.companyProfile),
+              LoginForm(callback: () => toggle),
               Footer(box: widget.box),
             ],
           ),
