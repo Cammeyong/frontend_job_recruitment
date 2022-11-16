@@ -10,6 +10,7 @@ class ErrorSnackBar extends SnackBar {
           key: key,
           padding: const EdgeInsets.all(20),
           backgroundColor: Colors.transparent,
+          elevation: 1,
           content: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -7,27 +7,28 @@ class SuccessSnackBar extends SnackBar {
 
   SuccessSnackBar({Key? key, required this.msg})
       : super(
-    key: key,
-    padding: const EdgeInsets.all(20),
-    backgroundColor: Colors.transparent,
-    content: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-            ),
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              msg,
-              style: successStyle,
-              textAlign: TextAlign.center,
-            ),
+          key: key,
+          padding: const EdgeInsets.all(20),
+          backgroundColor: Colors.transparent,
+          elevation: 1,
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    msg,
+                    style: successStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
-    ),
-  );
+        );
 }
