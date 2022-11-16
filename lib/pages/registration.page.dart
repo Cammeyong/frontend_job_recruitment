@@ -12,7 +12,6 @@ import 'package:frontend_job_recruitment/widgets/register_company.widget.dart';
 import 'package:frontend_job_recruitment/widgets/roundedToggle.widget.dart';
 
 import '../models/company.model.dart';
-import '../widgets/error_snackbar.widget.dart';
 import '../widgets/footer.widget.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
@@ -84,12 +83,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                                       context,
                                       nav,
                                       messenger,
-                                      User.signUp(form).catchError((err) {
-                                        nav.pop();
-                                        messenger.showSnackBar(
-                                          ErrorSnackBar(err: '$err'),
-                                        );
-                                      }),
+                                      User.signUp(form),
                                       (object) {
                                         ref
                                             .watch(landingPagesProvider.notifier)
@@ -112,12 +106,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                                       context,
                                       nav,
                                       messenger,
-                                      Company.signUp(form).catchError((err) {
-                                        nav.pop();
-                                        messenger.showSnackBar(
-                                          ErrorSnackBar(err: '$err'),
-                                        );
-                                      }),
+                                      Company.signUp(form),
                                       (object) {
                                         ref
                                             .watch(landingPagesProvider.notifier)

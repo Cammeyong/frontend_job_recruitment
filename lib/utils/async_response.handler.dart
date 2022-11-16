@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import '../widgets/error_snackbar.widget.dart';
 import '../widgets/success_snackbar.widget.dart';
 import 'colors.dart';
 
-void asyncResponseHandler<T>(String msg, BuildContext context, NavigatorState nav,
-    ScaffoldMessengerState messenger, Future<T?> requester, Function(Object object) resolver) async {
+void asyncResponseHandler<T>(
+    String msg,
+    BuildContext context,
+    NavigatorState nav,
+    ScaffoldMessengerState messenger,
+    Future<T?> requester,
+    Function(Object object) resolver) async {
   showDialog(
     context: context,
     builder: (context) => Center(
@@ -18,7 +24,12 @@ void asyncResponseHandler<T>(String msg, BuildContext context, NavigatorState na
       ),
     ),
   );
-  var response = await requester;
+  var response = await requester.catchError((err) {
+    nav.pop();
+    messenger.showSnackBar(
+      ErrorSnackBar(err: '$err'),
+    );
+  });
   if (response != null) {
     nav.pop();
     resolver(response);

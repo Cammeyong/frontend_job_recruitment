@@ -8,7 +8,6 @@ import '../screens/landing.screen.dart';
 import '../utils/async_response.handler.dart';
 import 'button1.widget.dart';
 import 'custom_text_field.widget.dart';
-import 'error_snackbar.widget.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
   final bool Function() callback;
@@ -70,13 +69,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                         context,
                         nav,
                         messenger,
-                        (!widget.callback() ? User.signIn(form) : Company.signIn(form))
-                            .catchError((err) {
-                          nav.pop();
-                          messenger.showSnackBar(
-                            ErrorSnackBar(err: '$err'),
-                          );
-                        }),
+                        (!widget.callback() ? User.signIn(form) : Company.signIn(form)),
                         (object) {
                           if (!widget.callback()) {
                             ref.watch(masterProvider.notifier).setUser(object as User);
