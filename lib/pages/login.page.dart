@@ -21,40 +21,44 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        const HeadBanner(applyButton: false),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: Text(
-                    'Sign In',
-                    style: titleStyle.merge(
-                      TextStyle(color: paletteIndigo),
+        Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(top: 300),
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: Text(
+                        'Sign In',
+                        style: titleStyle.merge(
+                          TextStyle(color: paletteIndigo),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Center(
+                    child: RoundedToggle(
+                      box: widget.box,
+                      callback: (toggle) async {
+                        this.toggle = toggle;
+                      },
+                      option1: 'Applicant',
+                      option2: 'Company',
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  LoginForm(callback: () => toggle),
+                  Footer(box: widget.box),
+                ],
               ),
-              Center(
-                child: RoundedToggle(
-                  box: widget.box,
-                  callback: (toggle) async {
-                    this.toggle = toggle;
-                  },
-                  option1: 'Applicant',
-                  option2: 'Company',
-                ),
-              ),
-              const Padding(padding: EdgeInsets.only(top: 30)),
-              LoginForm(callback: () => toggle),
-              Footer(box: widget.box),
-            ],
-          ),
+            ),
+          ],
         ),
+        const HeadBanner(applyButton: false),
       ],
     );
   }

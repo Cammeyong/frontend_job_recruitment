@@ -32,107 +32,111 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   Widget build(BuildContext context) {
     var nav = Navigator.of(context);
     var messenger = ScaffoldMessenger.of(context);
-    return Column(
+    return Stack(
       children: [
-        const HeadBanner(applyButton: false),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              Column(
+        Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(top: 300),
                 children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Text(
-                        'Registration',
-                        style: titleStyle.merge(
-                          TextStyle(color: paletteIndigo),
+                  Column(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          child: Text(
+                            'Registration',
+                            style: titleStyle.merge(
+                              TextStyle(color: paletteIndigo),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: RoundedToggle(
-                      box: widget.box,
-                      callback: (toggle) async {
-                        setState(() {
-                          going = true;
-                        });
-                        await Future.delayed(const Duration(milliseconds: 300));
-                        setState(() {
-                          going = false;
-                          this.toggle = toggle;
-                        });
-                      },
-                      option1: 'Applicant',
-                      option2: 'Company',
-                    ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                  !toggle
-                      ? TweenAnimationBuilder(
-                          tween: Tween<double>(begin: !going ? 0 : 1, end: !going ? 1 : 0),
-                          duration: const Duration(milliseconds: 300),
-                          builder: (ctx, value, child) {
-                            return Opacity(
-                              opacity: value,
-                              child: RegisterApplicantForm(callback: (form) async {
-                                asyncResponseHandler<Map<String, dynamic>>(
-                                  'Registration Successful.',
-                                  context,
-                                  nav,
-                                  messenger,
-                                  User.signUp(form).catchError((err) {
-                                    nav.pop();
-                                    messenger.showSnackBar(
-                                      ErrorSnackBar(err: '$err'),
-                                    );
-                                  }),
-                                  (object) {
-                                    ref
-                                        .watch(landingPagesProvider.notifier)
-                                        .setPage(LandingPages.login);
-                                  },
-                                );
-                              }),
-                            );
+                      Center(
+                        child: RoundedToggle(
+                          box: widget.box,
+                          callback: (toggle) async {
+                            setState(() {
+                              going = true;
+                            });
+                            await Future.delayed(const Duration(milliseconds: 300));
+                            setState(() {
+                              going = false;
+                              this.toggle = toggle;
+                            });
                           },
-                        )
-                      : TweenAnimationBuilder(
-                          tween: Tween<double>(begin: !going ? 0 : 1, end: !going ? 1 : 0),
-                          duration: const Duration(milliseconds: 300),
-                          builder: (ctx, value, child) {
-                            return Opacity(
-                              opacity: value,
-                              child: RegisterCompanyForm(callback: (form) {
-                                asyncResponseHandler<Map<String, dynamic>>(
-                                  'Registration Successful.',
-                                  context,
-                                  nav,
-                                  messenger,
-                                  Company.signUp(form).catchError((err) {
-                                    nav.pop();
-                                    messenger.showSnackBar(
-                                      ErrorSnackBar(err: '$err'),
-                                    );
-                                  }),
-                                  (object) {
-                                    ref
-                                        .watch(landingPagesProvider.notifier)
-                                        .setPage(LandingPages.login);
-                                  },
-                                );
-                              }),
-                            );
-                          },
+                          option1: 'Applicant',
+                          option2: 'Company',
                         ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(top: 30)),
+                      !toggle
+                          ? TweenAnimationBuilder(
+                              tween: Tween<double>(begin: !going ? 0 : 1, end: !going ? 1 : 0),
+                              duration: const Duration(milliseconds: 300),
+                              builder: (ctx, value, child) {
+                                return Opacity(
+                                  opacity: value,
+                                  child: RegisterApplicantForm(callback: (form) async {
+                                    asyncResponseHandler<Map<String, dynamic>>(
+                                      'Registration Successful.',
+                                      context,
+                                      nav,
+                                      messenger,
+                                      User.signUp(form).catchError((err) {
+                                        nav.pop();
+                                        messenger.showSnackBar(
+                                          ErrorSnackBar(err: '$err'),
+                                        );
+                                      }),
+                                      (object) {
+                                        ref
+                                            .watch(landingPagesProvider.notifier)
+                                            .setPage(LandingPages.login);
+                                      },
+                                    );
+                                  }),
+                                );
+                              },
+                            )
+                          : TweenAnimationBuilder(
+                              tween: Tween<double>(begin: !going ? 0 : 1, end: !going ? 1 : 0),
+                              duration: const Duration(milliseconds: 300),
+                              builder: (ctx, value, child) {
+                                return Opacity(
+                                  opacity: value,
+                                  child: RegisterCompanyForm(callback: (form) {
+                                    asyncResponseHandler<Map<String, dynamic>>(
+                                      'Registration Successful.',
+                                      context,
+                                      nav,
+                                      messenger,
+                                      Company.signUp(form).catchError((err) {
+                                        nav.pop();
+                                        messenger.showSnackBar(
+                                          ErrorSnackBar(err: '$err'),
+                                        );
+                                      }),
+                                      (object) {
+                                        ref
+                                            .watch(landingPagesProvider.notifier)
+                                            .setPage(LandingPages.login);
+                                      },
+                                    );
+                                  }),
+                                );
+                              },
+                            ),
+                    ],
+                  ),
+                  Footer(box: widget.box),
                 ],
               ),
-              Footer(box: widget.box),
-            ],
-          ),
+            ),
+          ],
         ),
+        const HeadBanner(applyButton: false),
       ],
     );
   }

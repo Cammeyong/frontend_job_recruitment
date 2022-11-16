@@ -27,6 +27,7 @@ class HeadBanner extends ConsumerWidget {
               bottomLeft: Radius.circular(40),
               bottomRight: Radius.circular(40),
             ),
+            color: Colors.transparent,
           ),
         ),
         Opacity(
