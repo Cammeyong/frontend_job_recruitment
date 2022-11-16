@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_job_recruitment/models/post.model.dart';
 import 'package:frontend_job_recruitment/screens/job_details.screen.dart';
 import 'package:frontend_job_recruitment/services/http.service.dart';
+import 'package:frontend_job_recruitment/tools/httpTools.dart';
 import 'package:frontend_job_recruitment/widgets/layout/spacers.dart';
 
 class JobListingsScreen extends StatelessWidget {
@@ -60,7 +61,7 @@ class JobListingsScreen extends StatelessWidget {
             Container(
               decoration: BoxDecoration(color: Colors.grey[300]),
               child: FutureBuilder(
-                  future: HTTP().get(Uri.parse('/posts')),
+                  future: Post.getMany(PagedFiltered(limit: 6, page: 1)),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const SizedBox(
@@ -72,11 +73,11 @@ class JobListingsScreen extends StatelessWidget {
                     if (snapshot.hasError) {
                       return const SizedBox(
                         height: 500,
-                        child: Center(child: Text("Something went wrong!")),
+                        child: Center(child: Text("No jobs found!")),
                       );
                     }
 
-                    final jobs = snapshot.data!['data'] as List<Post>;
+                    final jobs = (snapshot.data!['data'] as List<dynamic>);
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -92,7 +93,7 @@ class JobListingsScreen extends StatelessWidget {
     );
   }
 
-  Card buildJobListing(BuildContext context, dynamic job) {
+  Card buildJobListing(BuildContext context, Map<String, dynamic> job) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
       elevation: 0,
@@ -103,7 +104,7 @@ class JobListingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(job['title'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-            Text(job['company'], style: const TextStyle(fontSize: 18)),
+            Text(job['company'] ?? "N/A", style: const TextStyle(fontSize: 18)),
             const VerticalSpacer(size: 24),
             ListTile(
               leading: const Icon(Icons.work, color: Colors.black),
@@ -113,7 +114,7 @@ class JobListingsScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.location_on, color: Colors.black),
-              title: Text(job['location']),
+              title: Text(job['mailing_addres']),
               contentPadding: const EdgeInsets.all(0),
               minLeadingWidth: 24,
             ),
@@ -122,7 +123,7 @@ class JobListingsScreen extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     leading: const Icon(Icons.calendar_month, color: Colors.black),
-                    title: Text(job['date']),
+                    title: Text(job['date'] ?? DateTime.now().toIso8601String()),
                     dense: true,
                     contentPadding: const EdgeInsets.all(0),
                     minLeadingWidth: 24,
@@ -131,7 +132,7 @@ class JobListingsScreen extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     leading: const Icon(Icons.access_time, color: Colors.black),
-                    title: Text(job['duration']),
+                    title: Text(job['duration'] ?? "N/A"),
                     dense: true,
                     contentPadding: const EdgeInsets.all(0),
                     minLeadingWidth: 24,
@@ -145,7 +146,7 @@ class JobListingsScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => JobDetailsScreen(id: job['id'])),
+                      MaterialPageRoute(builder: (context) => JobDetailsScreen(id: job['_id'])),
                     );
                   },
                   child: const Text("View Job"),
