@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
@@ -49,15 +48,13 @@ class Post {
       await _http.get(Uri.parse('$_baseUrl?${pageFilter.getQueryString()}'));
 
   static Future<Map<String, dynamic>?> save(Map<String, Object> source) async {
-    source['image'] = await MultipartFile.fromFile(source['image'] as String);
-    source['clip'] = await MultipartFile.fromFile(source['clip'] as String);
+    source['banner'] = await MultipartFile.fromFile(source['banner'] as String);
     return await _http.postFD(Uri.parse(_baseUrl), FormData.fromMap(source));
   }
 
   Future<Map<String, dynamic>?> update() async {
     var source = toJson();
-    source['image'] = File(source['image'] as String);
-    source['clip'] = File(source['clip'] as String);
+    source['banner'] = await MultipartFile.fromFile(source['banner'] as String);
     return await _http.patchFD(Uri.parse('$_baseUrl/$_id'), FormData.fromMap(source));
   }
 

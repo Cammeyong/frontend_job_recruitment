@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:frontend_job_recruitment/services/http.service.dart';
 
 HTTP _http = HTTP();
@@ -34,8 +35,11 @@ class Company {
 
   static get(String id) async => await HTTP().get(Uri.parse('$_baseUrl/$id'));
 
-  static Future<Map<String, dynamic>?> signUp(Map<String, Object> source) async =>
-      await _http.post(Uri.parse(_baseUrl), source);
+  static Future<Map<String, dynamic>?> signUp(Map<String, Object> source) async {
+    source['logo'] = await MultipartFile.fromFile(source['logo'] as String);
+    source['certificate'] = await MultipartFile.fromFile(source['certificate'] as String);
+    return await _http.postFD(Uri.parse(_baseUrl), FormData.fromMap(source));
+  }
 
   static Future<Company?> signIn(Map<String, Object> source) async => Company.fromJson(
       (await _http.post(Uri.parse('$_baseUrl/login'), source))!['data'] as Map<String, dynamic>);
@@ -47,7 +51,12 @@ class Company {
 
   Future<Map<String, dynamic>?> delete() async => await _http.delete(Uri.parse(_baseUrl));
 
-  Future<Map<String, dynamic>?> update() async => await _http.patch(Uri.parse(_baseUrl), toJson());
+  Future<Map<String, dynamic>?> update() async {
+    var source = toJson();
+    source['logo'] = await MultipartFile.fromFile(source['logo'] as String);
+    source['certificate'] = await MultipartFile.fromFile(source['certificate'] as String);
+    return await _http.patchFD(Uri.parse(_baseUrl), FormData.fromMap(source));
+  }
 
   from(Map<String, Object?> source) {
     _password = source['password'] as String;
