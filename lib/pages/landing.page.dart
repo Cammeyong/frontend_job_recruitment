@@ -55,42 +55,38 @@ class LandingPage extends ConsumerWidget {
                 ),
               ),
               const Padding(padding: EdgeInsets.only(top: 50)),
-              Column(
-                children: [
-                  Image.asset(
-                    'images/meeting-1.jpg',
-                    fit: BoxFit.cover,
-                    height: 300,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    color: Colors.blueGrey.withOpacity(0.2),
-                    child: Column(
-                      children: [
-                        Text(
-                          'FIND THE RIGHT WORK FOR YOU',
-                          style: subTitleStyle,
-                        ),
-                        const Padding(padding: EdgeInsets.only(top: 10)),
-                        Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                          style: bodyStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        Button1(
-                          title: 'APPLY',
-                          callback: () {
-                            ref
-                                .watch(landingPagesProvider.notifier)
-                                .setPage(LandingPages.registration);
-                          },
-                        ),
-                      ],
+              Image.asset(
+                'images/meeting-1.jpg',
+                fit: BoxFit.cover,
+                height: 300,
+              ),
+              Container(
+                width: double.infinity,
+                height: 300,
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                color: Colors.blueGrey.withOpacity(0.2),
+                child: Column(
+                  children: [
+                    Text(
+                      'FIND THE RIGHT WORK FOR YOU',
+                      style: subTitleStyle,
                     ),
-                  ),
-                ],
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      style: bodyStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    Button1(
+                      title: 'APPLY',
+                      callback: () {
+                        ref
+                            .watch(landingPagesProvider.notifier)
+                            .setPage(LandingPages.registration);
+                      },
+                    ),
+                  ],
+                ),
               ),
               const Padding(padding: EdgeInsets.only(top: 20)),
               Footer(box: box),
