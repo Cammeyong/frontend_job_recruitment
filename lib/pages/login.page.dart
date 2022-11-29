@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.only(top: 300),
+                padding: const EdgeInsets.only(top: 250),
                 children: [
                   Center(
                     child: Padding(
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
-        const HeadBanner(applyButton: false),
+        const HeadBanner(title: ''),
       ],
     );
   }

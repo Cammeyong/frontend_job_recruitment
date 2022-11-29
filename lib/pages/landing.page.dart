@@ -23,7 +23,7 @@ class LandingPage extends ConsumerWidget {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.only(top: 300),
+                padding: const EdgeInsets.only(top: 250),
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
@@ -105,7 +105,7 @@ class LandingPage extends ConsumerWidget {
             ),
           ],
         ),
-        const HeadBanner(applyButton: true),
+        const HeadBanner(title: ''),
       ],
     );
   }

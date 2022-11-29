@@ -37,7 +37,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.only(top: 300),
+                padding: const EdgeInsets.only(top: 250),
                 children: [
                   Column(
                     children: [
@@ -125,7 +125,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             ),
           ],
         ),
-        const HeadBanner(applyButton: false),
+        const HeadBanner(title: ''),
       ],
     );
   }

@@ -4,12 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_job_recruitment/providers/landing_pages.provider.dart';
 import 'package:frontend_job_recruitment/screens/landing.screen.dart';
 import 'package:frontend_job_recruitment/utils/colors.dart';
+import 'package:frontend_job_recruitment/utils/text_styles.dart';
 import 'package:frontend_job_recruitment/widgets/button1.widget.dart';
 
 class HeadBanner extends ConsumerWidget {
-  final bool applyButton;
+  final String? title;
 
-  const HeadBanner({Key? key, required this.applyButton}) : super(key: key);
+  const HeadBanner({Key? key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +18,7 @@ class HeadBanner extends ConsumerWidget {
       children: [
         Container(
           width: double.infinity,
-          height: 300,
+          height: 250,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: Image.asset('images/search.jpg').image,
@@ -34,7 +35,7 @@ class HeadBanner extends ConsumerWidget {
           opacity: 0.6,
           child: Container(
             width: double.infinity,
-            height: 300,
+            height: 250,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.center,
@@ -82,14 +83,19 @@ class HeadBanner extends ConsumerWidget {
                 ),
               ),
               const Padding(padding: EdgeInsets.only(top: 20)),
-              applyButton
+              title == null
                   ? Button1(
                       title: 'APPLY',
                       callback: () {
                         ref.watch(landingPagesProvider.notifier).setPage(LandingPages.registration);
                       },
                     )
-                  : Container(),
+                  : Text(
+                      title!,
+                      style: titleStyle.merge(
+                        const TextStyle(color: Colors.white),
+                      ),
+                    ),
             ],
           ),
         )

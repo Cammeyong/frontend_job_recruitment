@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_job_recruitment/models/master.model.dart';
 import 'package:frontend_job_recruitment/pages/landing.page.dart';
 import 'package:frontend_job_recruitment/pages/landing_drawer.page.dart';
 import 'package:frontend_job_recruitment/pages/login.page.dart';
 import 'package:frontend_job_recruitment/pages/registration.page.dart';
 import 'package:frontend_job_recruitment/providers/landing_pages.provider.dart';
-import 'package:frontend_job_recruitment/providers/master.provider.dart';
 import 'package:frontend_job_recruitment/widgets/head_bar.widget.dart';
 
 class Landing extends ConsumerStatefulWidget {
@@ -17,15 +15,8 @@ class Landing extends ConsumerStatefulWidget {
 }
 
 class _LandingState extends ConsumerState<Landing> {
-  Master? master;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    master = ref.read(masterProvider);
-  }
 
   @override
   Widget build(BuildContext context) {
