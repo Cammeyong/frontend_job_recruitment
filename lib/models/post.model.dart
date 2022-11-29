@@ -11,6 +11,7 @@ class Post {
   String _id;
   String _title;
   File _banner;
+  String _description;
   String _position;
   String _requirements;
   String _tel;
@@ -23,6 +24,7 @@ class Post {
     this._email,
     this._author,
     this._banner,
+    this._description,
     this._position,
     this._requirements,
     this._tel,
@@ -35,6 +37,7 @@ class Post {
         source['email'] as String,
         source['author'] as String,
         source['banner'] as File,
+        source['description'] as String,
         source['position'] as String,
         source['requirements'] as String,
         source['tel'] as String,
@@ -62,6 +65,7 @@ class Post {
     _title = source['title'] as String? ?? _title;
     _mailingAddress = source['mailing_address'] as String? ?? _mailingAddress;
     _banner = source['banner'] as File? ?? _banner;
+    _description = source['description'] as String? ?? _description;
     _author = source['author'] as String? ?? _author;
     _email = source['email'] as String? ?? _email;
   }
@@ -72,6 +76,7 @@ class Post {
       'email': _email,
       'author': _author,
       'banner': _banner,
+      'description': _description,
       'mailing_address': _mailingAddress,
       'title': _title,
       'tel': _tel,

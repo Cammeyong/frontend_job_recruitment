@@ -1,33 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_job_recruitment/models/post.model.dart';
 import 'package:frontend_job_recruitment/screens/job_details.screen.dart';
-import 'package:frontend_job_recruitment/services/http.service.dart';
 import 'package:frontend_job_recruitment/tools/httpTools.dart';
+import 'package:frontend_job_recruitment/widgets/job_listing_paginator.dart';
 import 'package:frontend_job_recruitment/widgets/layout/spacers.dart';
 
-class JobListingsScreen extends StatelessWidget {
+class JobListingsScreen extends StatefulWidget {
   const JobListingsScreen({super.key});
 
-  final _jobs = const [
-    {
-      "id": "some_job",
-      "title": "Account Manager",
-      "company": "Massy Distribution (Trinidad)",
-      "position": "Management, Manager",
-      "location": "Macoya, Trinidad And Tobago",
-      "date": "Oct. 10, 2022",
-      "duration": "Permanent (Full-Time)",
-    },
-    {
-      "id": "some_other_job",
-      "title": "Senior Software Engineer",
-      "company": "Massy Distribution (Trinidad)",
-      "position": "Management, Manager",
-      "location": "Macoya, Trinidad And Tobago",
-      "date": "Oct. 10, 2022",
-      "duration": "Permanent (Full-Time)",
-    },
-  ];
+  @override
+  State<JobListingsScreen> createState() => _JobListingsScreenState();
+}
+
+class _JobListingsScreenState extends State<JobListingsScreen> {
+  Future<Map<String, dynamic>> _fetchPosts() async {
+    return await Post.getMany(PagedFiltered(limit: 6, page: 1));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +48,8 @@ class JobListingsScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(color: Colors.grey[300]),
-              child: FutureBuilder(
-                  future: Post.getMany(PagedFiltered(limit: 6, page: 1)),
+              child: FutureBuilder<Map<String, dynamic>>(
+                  future: _fetchPosts(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const SizedBox(
@@ -71,13 +59,26 @@ class JobListingsScreen extends StatelessWidget {
                     }
 
                     if (snapshot.hasError) {
-                      return const SizedBox(
-                        height: 500,
-                        child: Center(child: Text("No jobs found!")),
+                      print(snapshot.error);
+
+                      return SizedBox(
+                        height: 470,
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text("No jobs found!"),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: const Text("Refresh"),
+                              )
+                            ],
+                          ),
+                        ),
                       );
                     }
 
-                    final jobs = (snapshot.data!['data'] as List<dynamic>);
+                    final jobs = snapshot.data!['data'] as List<Map<String, dynamic>>;
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -86,7 +87,7 @@ class JobListingsScreen extends StatelessWidget {
                     );
                   }),
             ),
-            const CustomPaginator()
+            const CustomPaginator(),
           ],
         ),
       ),
@@ -155,31 +156,6 @@ class JobListingsScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CustomPaginator extends StatefulWidget {
-  const CustomPaginator({super.key});
-
-  @override
-  State<CustomPaginator> createState() => _CustomPaginatorState();
-}
-
-class _CustomPaginatorState extends State<CustomPaginator> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const TextButton(onPressed: null, child: Text("Previous")),
-          TextButton(onPressed: () {}, child: const Text("1")),
-          TextButton(onPressed: () {}, child: const Text("2")),
-          TextButton(onPressed: () {}, child: const Text("Next")),
-        ],
       ),
     );
   }

@@ -28,6 +28,7 @@ class HTTP {
       if (e.response != null) {
         throw e.response!.data['error'];
       } else {
+        print(e.toString());
         // Something happened in setting up or sending the request that triggered an Error
         throw Exception('Internal Error');
       }
