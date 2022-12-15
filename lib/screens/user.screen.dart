@@ -5,7 +5,7 @@ import 'package:frontend_job_recruitment/pages/profile.page.dart';
 import 'package:frontend_job_recruitment/providers/user_pages.provider.dart';
 import 'package:frontend_job_recruitment/widgets/head_bar.widget.dart';
 
-import '../pages/landing_drawer.page.dart';
+import '../pages/user_drawer.page.dart';
 
 class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _UserScreenState extends ConsumerState<UserScreen> {
             ref.watch(userPagesProvider.notifier).setPage(UserPages.profile);
           },
         ),
-        endDrawer: LayoutBuilder(builder: (context, box) => LandingDrawer(box: box)),
+        endDrawer: LayoutBuilder(builder: (context, box) => UserDrawer(box: box)),
         body: LayoutBuilder(builder: (context, box) {
           UserPages pageSelector = ref.watch(userPagesProvider);
           switch (pageSelector) {

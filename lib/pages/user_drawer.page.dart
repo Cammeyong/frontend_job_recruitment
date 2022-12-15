@@ -5,10 +5,10 @@ import 'package:frontend_job_recruitment/screens/user.screen.dart';
 import 'package:frontend_job_recruitment/utils/colors.dart';
 import 'package:frontend_job_recruitment/utils/text_styles.dart';
 
-class LandingDrawer extends ConsumerWidget {
+class UserDrawer extends ConsumerWidget {
   final BoxConstraints box;
 
-  const LandingDrawer({Key? key, required this.box}) : super(key: key);
+  const UserDrawer({Key? key, required this.box}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,8 +41,8 @@ class LandingDrawer extends ConsumerWidget {
                   height: double.infinity,
                   color: paletteIndigo
                       .withOpacity(
-                    0.6,
-                  )
+                        0.6,
+                      )
                       .withRed(120),
                 ),
                 Center(
@@ -78,24 +78,29 @@ class LandingDrawer extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('AMBER EMPLOY', style: TextStyle(color: paletteIndigo)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.waving_hand, color: paletteIndigo))
+                IconButton(
+                    onPressed: () {
+                      ref.watch(userPagesProvider.notifier).setPage(UserPages.profile);
+                      Scaffold.of(context).closeEndDrawer();
+                    },
+                    icon: Icon(Icons.waving_hand, color: paletteIndigo))
               ],
             ),
           ),
           ...(['HOME', 'JOB LISTING', 'CONTACT US', 'ABOUT US', 'FAQ']
               .map((e) => TextButton(
-            style: const ButtonStyle(
-              alignment: Alignment.centerLeft,
-            ),
-            onPressed: () {
-              switch (e) {
-                case 'HOME':
-                  ref.watch(userPagesProvider.notifier).setPage(UserPages.home);
-                  Scaffold.of(context).closeEndDrawer();
-              }
-            },
-            child: Text(e),
-          ))
+                    style: const ButtonStyle(
+                      alignment: Alignment.centerLeft,
+                    ),
+                    onPressed: () {
+                      switch (e) {
+                        case 'HOME':
+                          ref.watch(userPagesProvider.notifier).setPage(UserPages.home);
+                          Scaffold.of(context).closeEndDrawer();
+                      }
+                    },
+                    child: Text(e),
+                  ))
               .toList())
         ],
       ),
